@@ -1,0 +1,224 @@
+/* Home page scenes. Scroll-driven ranges are the ones from the approved board. */
+
+/* ---------- hero: day to night across the pinned hero ---------- */
+.hero { --sh: calc(100svh + 820px); view-timeline-name: --hero; }
+.hero .stage { background: #1B2A22; }
+.hero .night { animation: fadeIn linear both; animation-timeline: --hero; animation-range: contain 5% contain 85%; }
+.hero .veil { position: absolute; inset: 0; background: rgba(10, 20, 15, .34); }
+.hero .hero-copy { position: absolute; left: var(--pad); right: var(--pad); bottom: 72px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
+.hero h1 { max-width: 980px; font-size: var(--fs-hero); line-height: .98; color: #F4F1EA; letter-spacing: -.01em; }
+
+/* ---------- three homes, one landscape ---------- */
+.th { --sh: calc(100svh + 1320px); view-timeline-name: --th; }
+.th .stage { background: var(--bg); padding: clamp(84px, 12.5svh, 110px) var(--pad) 0; }
+.th h2 { font-size: var(--fs-scene); line-height: .95; color: var(--bottle); white-space: nowrap; }
+.th h2 span { display: block; }
+.th .w1 { animation: wipeIn linear both; animation-timeline: --th; animation-range: entry 320px contain 12%; }
+.th .w2 { animation: wipeIn linear both; animation-timeline: --th; animation-range: contain 50% contain 66%; }
+@keyframes draw { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0 0 0 0) } }
+.th .d1 { animation: draw linear both; animation-timeline: --th; animation-range: contain 12% contain 30%; }
+.th .d2 { animation: draw linear both; animation-timeline: --th; animation-range: contain 22% contain 40%; }
+.th .d3 { animation: draw linear both; animation-timeline: --th; animation-range: contain 32% contain 50%; }
+.th .hz { stroke-dasharray: 1; animation: stroke linear both; animation-timeline: --th; animation-range: contain 48% contain 70%; }
+.th .ph { animation: fadeIn linear both; animation-timeline: --th; animation-range: contain 74% contain 96%; }
+.th .lab { animation: fadeIn linear both; animation-timeline: --th; animation-range: contain 40% contain 60%; }
+.th .homes3 { position: absolute; left: var(--pad); right: var(--pad); bottom: clamp(48px, 10svh, 90px); }
+.th .homes3-row { display: flex; gap: 40px; align-items: flex-end; }
+.th figure { flex: 1 1 0; min-width: 0; }
+.th .frame { position: relative; height: min(340px, 37svh); overflow: clip; }
+.th figcaption { margin-top: 44px; font-size: 30px; }
+.th .horizon { position: absolute; left: 0; right: 0; bottom: 38px; width: 100%; height: 40px; }
+
+/* ---------- homes: bottle green section ---------- */
+.homes { background: var(--bottle); color: var(--cream); padding: 130px var(--pad) 110px; }
+.homes-head { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; padding-bottom: 40px; }
+.homes-head h2 { font-size: clamp(52px, 6.7vw, 96px); line-height: 1; color: var(--cream); }
+.homes-head p { font-size: 20px; color: var(--cream-2); max-width: 420px; }
+.hrow { display: flex; flex-direction: row; flex-wrap: wrap; gap: 72px; align-items: center; padding: 44px 0; }
+.hrow.rev { flex-direction: row-reverse; }
+.hrow .pic { flex: 7 1 620px; min-width: 0; height: 380px; position: relative; display: block; overflow: clip; background: var(--bottle-2); }
+.hrow .ph2 { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); will-change: transform; }
+.hrow .lw { position: absolute; inset: 0; background: rgba(14, 42, 32, .72); clip-path: inset(0 100% 0 0); will-change: clip-path; transition: clip-path var(--t-draw) cubic-bezier(.65, 0, .25, 1); }
+.hrow .lw img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hrow .tag { position: absolute; left: 24px; bottom: 24px; background: var(--cream); color: var(--bottle); font: 600 14px var(--font-body); padding: 10px 16px; border-radius: var(--radius); opacity: 0; transform: translateY(8px); transition: opacity .45s var(--ease), transform .45s var(--ease); }
+.hrow .pic:hover .lw, .hrow .pic:focus-visible .lw, .hrow .pic.is-center .lw { clip-path: inset(0 0 0 0); }
+.hrow .pic:hover .ph2, .hrow .pic.is-center .ph2 { transform: scale(1.03); }
+.hrow .pic:hover .tag, .hrow .pic:focus-visible .tag, .hrow .pic.is-center .tag { opacity: 1; transform: none; }
+.hrow .pic:focus-visible { outline: 2px solid var(--moss); outline-offset: 4px; }
+.hrow .copy { flex: 5 1 380px; min-width: 0; }
+.hrow h3 { font-size: clamp(48px, 5.6vw, 80px); line-height: .98; color: var(--cream); }
+.hrow .one { margin-top: 20px; font-size: 21px; line-height: 1.45; max-width: 460px; }
+.hrow .meta { margin-top: 14px; font-size: 17px; font-weight: 600; color: var(--cream-2); }
+.hrow .link { display: inline-block; margin-top: 28px; color: var(--cream); }
+.homes .rule2 { color: var(--cream); }
+.homes-foot { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 48px 0 0; margin-top: 44px; border-top: 1px solid rgba(239, 235, 226, .28); flex-wrap: wrap; }
+.homes-foot .big { font-size: clamp(30px, 3.05vw, 44px); line-height: 1.05; }
+
+/* ---------- kildare ---------- */
+.kil { --sh: calc(100svh + 2720px); view-timeline-name: --kil; }
+.kil .stage { background: var(--bg); }
+.kil .kmap { position: absolute; inset: 0; animation: kmap linear both; animation-timeline: --kil; animation-range: contain 34% contain 52%; }
+.kil .mapbox { position: absolute; inset: 0; }
+.kil .mapbox > svg { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.kil .ktitle { position: absolute; left: var(--pad); top: 120px; font-size: clamp(44px, 4.7vw, 68px); line-height: 1; color: var(--bottle); animation: wipeIn linear both; animation-timeline: --kil; animation-range: contain 46% contain 60%; }
+@keyframes kmap { from { opacity: 0; transform: scale(1.1) } to { opacity: 1; transform: none } }
+@keyframes win { from { clip-path: inset(14% 40% 10% calc(40% + 40px)) } to { clip-path: inset(104px var(--asym-r) 56px var(--asym-l)) } }
+.kil .kwin { position: absolute; inset: 0; overflow: clip; animation: win linear both; animation-timeline: --kil; animation-range: entry 0% contain 0%; }
+.kil .kimg { position: absolute; inset: 0; animation: kzoom linear both; animation-timeline: --kil; animation-range: entry 20% contain 46%; }
+.kil .kimg .shade { position: absolute; inset: 0; background: rgba(10, 20, 15, .18); }
+@keyframes kzoom { 0% { transform: scale(1.18); opacity: 1 } 62% { transform: scale(1.02); opacity: 1 } 100% { transform: scale(.9); opacity: 0 } }
+.kil .kword { position: absolute; left: calc(var(--asym-l) + 40px); bottom: 84px; font-size: clamp(110px, 19.4vw, 280px); line-height: .8; color: #F4F1EA; letter-spacing: -.02em; animation: kword linear both; animation-timeline: --kil; animation-range: contain 14% contain 46%; }
+@keyframes kword { 0% { -webkit-mask-position: 100% 0; mask-position: 100% 0; opacity: 1 } 45% { -webkit-mask-position: 0 0; mask-position: 0 0; opacity: 1 } 80% { opacity: 1 } 100% { opacity: 0; -webkit-mask-position: 0 0; mask-position: 0 0 } }
+.kil .k-ring { stroke-dasharray: 1; animation: stroke linear both; animation-timeline: --kil; }
+.kil .k-ring2 { stroke-dasharray: 1; animation: stroke linear both, fadeOut linear both; animation-timeline: --kil, --kil; }
+.kil .k-ring.k-r0 { animation-range: contain 52% contain 60%; }
+.kil .k-ring2.k-r0 { animation-range: contain 52% contain 60%, contain 60% contain 65%; }
+.kil .k-ring.k-r1 { animation-range: contain 60% contain 68%; }
+.kil .k-ring2.k-r1 { animation-range: contain 60% contain 68%, contain 68% contain 73%; }
+.kil .k-ring.k-r2 { animation-range: contain 68% contain 80%; }
+.kil .k-ring2.k-r2 { animation-range: contain 68% contain 80%, contain 80% contain 85%; }
+.kil .k-ring.k-r3 { animation-range: contain 74% contain 88%; }
+.kil .k-ring2.k-r3 { animation-range: contain 74% contain 88%, contain 90% contain 95%; }
+.kil .k-stop { animation: fadeIn linear both; animation-timeline: --kil; }
+.kil .k-s0, .kil .k-s1 { animation-range: contain 58% contain 62%; }
+.kil .k-s2 { animation-range: contain 66% contain 70%; }
+.kil .k-s3 { animation-range: contain 78% contain 82%; }
+.kil .k-s4 { animation-range: contain 88% contain 92%; }
+.kil .k-lear { animation: fadeIn linear both; animation-timeline: --kil; animation-range: contain 46% contain 52%; }
+
+/* ---------- one team ---------- */
+.ot { --sh: calc(100svh + 1620px); view-timeline-name: --ot; }
+.ot .stage { background: var(--bg); padding: clamp(96px, 13.6svh, 120px) var(--pad) clamp(40px, 8svh, 72px); display: flex; flex-direction: column; }
+.ot h2 { font-size: clamp(40px, 5.6vw, 84px); line-height: 1; color: var(--bottle); white-space: nowrap; }
+.ot h2 span { display: block; }
+.ot .l1 { animation: wipeIn linear both; animation-timeline: --ot; animation-range: entry 300px contain 14%; }
+.ot .quad { position: relative; flex: 1; min-height: 0; margin-top: clamp(28px, 6.4svh, 56px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.ot .hx, .ot .vx { position: absolute; }
+.ot .hx { left: 0; right: 0; top: 50%; height: 5px; border-top: 1px solid var(--bottle); border-bottom: 1px solid var(--bottle); transform-origin: left center; animation: sx linear both; animation-timeline: --ot; animation-range: contain 14% contain 28%; }
+.ot .vx { top: 0; bottom: 0; left: 50%; width: 5px; border-left: 1px solid var(--bottle); border-right: 1px solid var(--bottle); transform-origin: center top; animation: sy linear both; animation-timeline: --ot; animation-range: contain 20% contain 34%; }
+@keyframes sx { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+@keyframes sy { from { transform: scaleY(0) } to { transform: scaleY(1) } }
+.ot .q { display: flex; gap: 28px; align-items: baseline; }
+.ot .q h3 { font-size: clamp(36px, 3.9vw, 56px); flex: 0 0 clamp(130px, 15.3vw, 220px); }
+.ot .q p { font-size: clamp(17px, 1.4vw, 20px); max-width: 380px; }
+.ot .q1 { padding: 0 48px 24px 0; animation: wipeIn linear both; animation-timeline: --ot; animation-range: contain 32% contain 46%; }
+.ot .q2 { padding: 0 0 24px 56px; animation: wipeIn linear both; animation-timeline: --ot; animation-range: contain 46% contain 60%; }
+.ot .q3 { padding: 28px 48px 0 0; animation: wipeIn linear both; animation-timeline: --ot; animation-range: contain 60% contain 74%; }
+.ot .q4 { padding: 28px 0 0 56px; animation: wipeIn linear both; animation-timeline: --ot; animation-range: contain 74% contain 88%; }
+
+/* ---------- show home (full bleed) ---------- */
+.endwrap { view-timeline-name: --end; }
+.showhome { position: relative; height: clamp(640px, 100svh, 960px); overflow: clip; background: #1B2A22; }
+.showhome .shimg { animation: zoomOut linear both; animation-timeline: --end; animation-range: entry 0% entry 100%; }
+.showhome .box { position: absolute; left: var(--pad); bottom: 56px; width: 620px; max-width: calc(100% - 2 * var(--pad)); background: var(--bottle); color: var(--cream); padding: 56px; }
+.showhome h2 { margin-top: 28px; font-size: clamp(48px, 5.3vw, 76px); line-height: 1; }
+.showhome .sq .dr { stroke-dasharray: 1; animation: stroke linear both; animation-timeline: view(); animation-range: entry 30% cover 50%; }
+.showhome .lede { margin-top: 20px; font-size: 19px; color: var(--cream); }
+.showhome .hours { margin-top: 28px; font-size: 16px; color: var(--cream-2); }
+.showhome .next { margin-top: 8px; font-size: 19px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+.showhome .btn { margin-top: 36px; }
+
+/* ---------- tablet ---------- */
+@media (max-width: 1199px) {
+  .hero .hero-copy { bottom: 56px; }
+  .homes { padding: 100px var(--pad) 90px; }
+  .hrow { gap: 40px; padding: 36px 0; }
+  .hrow .pic { height: 340px; flex-basis: 100%; }
+  .hrow .copy { flex-basis: 100%; }
+  .ot .q { flex-direction: column; gap: 10px; align-items: flex-start; }
+  .ot .q h3 { flex: none; }
+  .ot .q p { max-width: 300px; }
+  .ot .q1 { padding-right: 24px; }
+  .ot .q2 { padding-left: 32px; }
+  .ot .q3 { padding-right: 24px; }
+  .ot .q4 { padding-left: 32px; }
+  .showhome .box { padding: 40px; }
+}
+
+/* ---------- phone and reduced motion: calm, full width, nothing pinned except the hero ---------- */
+@media (max-width: 767px) {
+  .hero { --sh: calc(100svh + 50svh); }
+  .hero .hero-copy { left: 20px; right: 20px; bottom: 36px; gap: 24px; }
+  .hero h1 { font-size: clamp(44px, 12.5vw, 56px); }
+
+  /* three homes: two-line title, three drawings stacked, drawn when they reach the screen */
+  .th { --sh: auto; height: auto; }
+  .th .stage { position: relative; height: auto; padding: var(--section) 20px 0; overflow: visible; }
+  .th h2 { font-size: clamp(36px, 11vw, 48px); }
+  .th .w1, .th .w2 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .th .homes3 { position: static; margin-top: 44px; }
+  .th .homes3-row { flex-direction: column; align-items: stretch; gap: 44px; }
+  .th .frame { height: auto; aspect-ratio: 16 / 10; }
+  .th figcaption { margin-top: 14px; font-size: 26px; }
+  .th .horizon { display: none; }
+  .th .d1, .th .d2, .th .d3 { animation: draw linear both; animation-timeline: view(); animation-range: entry 10% cover 30%; }
+  .th .ph { animation: fadeIn linear both; animation-timeline: view(); animation-range: cover 32% cover 58%; }
+  .th .lab { animation: none; }
+
+  .homes { padding: var(--section) 20px 72px; }
+  .homes-head { padding-bottom: 24px; }
+  .homes-head p { font-size: 18px; }
+  .hrow { gap: 24px; padding: 28px 0; }
+  .hrow, .hrow.rev { flex-direction: column; align-items: stretch; flex-wrap: nowrap; }
+  .hrow .pic { flex: none; height: auto; aspect-ratio: 4 / 3; width: 100%; }
+  .hrow .copy { flex: none; }
+  .hrow .one { font-size: 19px; }
+  .homes-foot { padding-top: 32px; margin-top: 24px; }
+  .homes-foot .big { font-size: 32px; }
+
+  .kil { --sh: auto; height: auto; }
+  .kil .stage { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; background: var(--bg); }
+  .kil .kwin { position: relative; inset: auto; order: 1; margin: 76px 20px 0; height: min(70svh, 560px); animation: none; clip-path: none; }
+  .kil .kimg { animation: none; }
+  .kil .kword { left: 20px; bottom: 24px; font-size: clamp(76px, 25vw, 120px); animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; opacity: 1; }
+  .kil .kmap { position: relative; inset: auto; order: 2; animation: none; padding: 64px 0 var(--section); display: flex; flex-direction: column; }
+  .kil .ktitle { order: -1; position: static; margin: 0 20px 20px; animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  /* the map is cropped to the area around Lear and scaled up so the stop labels stay readable */
+  .kil .mapbox { position: relative; inset: auto; height: 68vw; overflow: clip; }
+  .kil .mapbox > svg { position: absolute; inset: auto; width: 225vw; max-width: none; height: auto; left: -93.75vw; top: -39vw; }
+  .kil .k-stop text:not([font-size="34"]) { font-size: 21px; }
+  .kil .k-stop tspan { font-size: 18px; }
+  .kil .k-ring, .kil .k-ring2, .kil .k-stop, .kil .k-lear { animation: none; }
+  .kil .mapbox .k-ring { animation: stroke linear both; animation-timeline: view(); animation-range: entry 20% cover 45%; }
+  .kil .k-ring2 { display: none; }
+
+  .ot { --sh: auto; height: auto; }
+  .ot .stage { position: relative; height: auto; overflow: visible; padding: var(--section) 20px; }
+  .ot h2 { white-space: normal; font-size: clamp(38px, 11vw, 52px); }
+  .ot .l1 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .ot .quad { display: block; margin-top: 36px; flex: none; }
+  .ot .hx, .ot .vx { display: none; }
+  .ot .q, .ot .q1, .ot .q2, .ot .q3, .ot .q4 { padding: 28px 0; border-top: 1px solid var(--line); flex-direction: column; gap: 10px; animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .ot .q:last-child { border-bottom: 1px solid var(--line); }
+  .ot .q h3 { flex: none; font-size: 44px; }
+  .ot .q p { font-size: 18px; max-width: none; }
+
+  .showhome { height: auto; min-height: 640px; display: flex; align-items: flex-end; }
+  .showhome .box { position: relative; left: auto; bottom: auto; width: 100%; max-width: none; padding: 32px 20px; margin-top: 360px; }
+  .showhome h2 { margin-top: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero { --sh: auto; height: auto; }
+  .hero .stage { position: relative; height: 100svh; }
+  .hero .night { opacity: 0; }
+  .hero .night, .th .ph, .th .d1, .th .d2, .th .d3, .th .lab { opacity: 1; }
+  .th { --sh: auto; height: auto; }
+  .th .stage { position: relative; height: auto; padding-bottom: var(--section); overflow: visible; }
+  .th .hz { stroke-dasharray: none; }
+  .th .ph { opacity: 1; }
+  .th .d1, .th .d2, .th .d3 { clip-path: none; }
+  .kil { --sh: auto; height: auto; }
+  .kil .stage { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; }
+  .kil .kwin { position: relative; inset: auto; order: 1; margin: 104px var(--asym-r) 0 var(--asym-l); height: min(70svh, 640px); clip-path: none; }
+  .kil .kimg { opacity: 1; transform: none; }
+  .kil .kword { opacity: 1; }
+  .kil .kmap { position: relative; inset: auto; order: 2; padding: 64px 0 var(--section); opacity: 1; }
+  .kil .ktitle { position: static; margin: 0 var(--pad) 24px; }
+  .kil .mapbox { position: relative; inset: auto; height: auto; aspect-ratio: 1440 / 880; }
+  .kil .k-ring { stroke-dasharray: none; }
+  .kil .k-ring2 { display: none; }
+  .ot { --sh: auto; height: auto; }
+  .ot .stage { position: relative; height: auto; overflow: visible; padding-bottom: var(--section); }
+  .ot .hx, .ot .vx { transform: none; }
+}

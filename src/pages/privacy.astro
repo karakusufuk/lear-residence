@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import { EMAIL } from '../config/site';
+import '../styles/misc.css';
+---
+<Base title="Privacy — Lear" description="This is a concept site. Its forms send nothing and it sets no cookies.">
+  <section class="legal">
+    <h1 class="serif">Privacy.</h1>
+    <p>Lear is a concept site. The company, the homes, the prices and the people in it are made up for a design portfolio.</p>
+    <h2 class="serif">Forms</h2>
+    <p>The forms on this site, for booking a visit, joining the Phase 2 list and sending a message, are demonstrations. What you type stays in your browser and is not sent to us or to anyone else.</p>
+    <h2 class="serif">Cookies and analytics</h2>
+    <p>The site sets no cookies and uses no analytics or tracking. Fonts and images are served from the same address as the pages.</p>
+    <h2 class="serif">Questions</h2>
+    <p>Write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.</p>
+  </section>
+</Base>

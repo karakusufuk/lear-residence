@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { PHONE, PHONE_HREF, EMAIL, OFFICE_LINES } from '../config/site';
+import '../styles/misc.css';
+---
+<Base
+  current="/contact/"
+  title="Contact — Talk to the people who built it | Lear"
+  description="Phone, email and the sales office at Plot 1, Lear, Kildare town. Or send a message and we reply within one working day."
+>
+  <section class="ct">
+    <div class="info">
+      <h1 class="serif wipe onview">Talk to the people who built it.</h1>
+      <dl class="num">
+        <div><dt>Phone</dt><dd><a href={PHONE_HREF}>{PHONE}</a></dd></div>
+        <div><dt>Email</dt><dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd></div>
+        <div><dt>Sales office</dt><dd>{OFFICE_LINES[0]}<br />{OFFICE_LINES[1]}</dd></div>
+        <div><dt>Open</dt><dd>Thursday 5–7.30pm<br />Saturday and Sunday 11am–4pm</dd></div>
+      </dl>
+    </div>
+    <form class="formcard light" data-demo novalidate aria-labelledby="f-h">
+      <h2 id="f-h" class="serif">Send a message.</h2>
+      <div class="fields" data-fields>
+        <label class="fld">About
+          <select name="about">
+            <option value="phase1">A home in Phase 1</option>
+            <option value="phase2">Phase 2 interest</option>
+            <option value="trade">Trade and suppliers</option>
+            <option value="other">Something else</option>
+          </select>
+        </label>
+        <label class="fld">Full name<input type="text" name="name" autocomplete="name" required /><span class="err" aria-live="polite"></span></label>
+        <div class="row2">
+          <label class="fld">Email<input type="email" name="email" autocomplete="email" required /><span class="err" aria-live="polite"></span></label>
+          <label class="fld">Phone <span style="font-weight:500;color:var(--ink-2)">(optional)</span><input type="tel" name="phone" autocomplete="tel" /></label>
+        </div>
+        <label class="fld">Message<textarea name="message" rows="5" required></textarea><span class="err" aria-live="polite"></span></label>
+      </div>
+      <div class="foot-row" data-hide-on-success><button type="submit" class="btn">Send</button><p>We reply within one working day.</p></div>
+      <div class="ok" data-success hidden role="status"><p class="serif">Thanks. We reply within one working day.</p></div>
+    </form>
+  </section>
+  <script>
+    import '../scripts/forms.ts';
+  </script>
+</Base>

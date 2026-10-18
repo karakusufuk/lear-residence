@@ -1,0 +1,49 @@
+/* Lear — design tokens (18 Oct 2026). Use these everywhere; no other colours or fonts. */
+:root {
+  /* colour */
+  --bg: #F9F7F3;          /* page ground, warm white */
+  --paper: #F2EFE9;       /* drawing grounds, soft bands */
+  --white: #FFFFFF;       /* cards, forms */
+  --ink: #13201A;         /* body text */
+  --ink-2: #4E5A53;       /* secondary text (7:1 on --bg) */
+  --bottle: #0E2A20;      /* near-black bottle green: header, homes section, booking, buttons, logo */
+  --bottle-2: #163829;    /* second dark tone (image grounds on dark) */
+  --cream: #EFEBE2;       /* text and light buttons on bottle green */
+  --cream-2: #B9C4BC;     /* secondary text on bottle green */
+  --moss: #7A9F45;        /* ONLY: hover fill of buttons, available dot, gönye ticks, route, ring stops, hover accents */
+  --moss-dark: #5C7E2E;   /* hover text accents on light ground */
+  --brick: #A9705C;       /* sold (muted brick, never red) */
+  --line: #D8D2C6;        /* thin rules on light */
+  --line-dark: rgba(239, 235, 226, .28); /* thin rules on bottle green */
+  /* site plan tones (close together on purpose) */
+  --plan-ground: #EFECE6; --plan-plot: #E7E3DB; --plan-road: #DDD8CE; --plan-green: #E2E7DA;
+  --plan-top: #F4F2ED; --plan-left: #E3DFD6; --plan-right: #D5D0C5;
+  --plan-reserved: #E6E1D6; --plan-sold: #CDA697;
+
+  /* type */
+  --font-display: 'Gloock', Georgia, serif;               /* weight 400 only; it is a heavy face */
+  --font-body: 'Instrument Sans', system-ui, sans-serif;  /* body 500, labels 600, strong 700 */
+  --num: tabular-nums lining-nums;
+
+  --fs-hero: clamp(52px, 7.2vw, 104px);
+  --fs-scene: clamp(56px, 8.3vw, 120px);  /* full-screen scene lines, nowrap */
+  --fs-h1: clamp(64px, 10vw, 150px);      /* sub page h1 */
+  --fs-h2: clamp(44px, 5vw, 76px);
+  --fs-house: clamp(48px, 5.6vw, 80px);   /* house names */
+  --fs-lead: clamp(19px, 1.7vw, 24px);
+  --fs-body: 17px;                        /* line-height 1.6, weight 500 */
+  --fs-small: 15px;
+
+  /* layout */
+  --pad: 56px;            /* text side padding (mobile 20px) */
+  --asym-l: 96px;         /* big photos on sub pages: wider gap on the left ... */
+  --asym-r: 56px;         /* ... narrower on the right. Same on every page. */
+  --section: 140px;       /* vertical breathing room (mobile 88px) */
+  --radius: 6px;          /* buttons, fields, cards. Photos, plans and drawings are square-cornered. */
+
+  /* motion */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --t-hover: 500ms;
+  --t-draw: 1000ms;       /* line drawing over a photo on hover */
+  --t-icon: 2400ms;       /* Architecture drawings drawing themselves */
+}

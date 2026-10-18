@@ -1,0 +1,53 @@
+---
+import Gonye from './Gonye.astro';
+import LearWord from './LearWord.astro';
+import { PHONE, PHONE_SHORT, PHONE_HREF, EMAIL } from '../config/site';
+import { remaining } from '../lib/plots';
+
+interface Props { current?: string; home?: boolean }
+const { current = '', home = false } = Astro.props;
+const nav = [
+  ['Homes', '/homes/'],
+  ['Architecture', '/architecture/'],
+  ['Show home', '/show-home/'],
+  ['Buying', '/buying/'],
+  ['Contact', '/contact/'],
+];
+---
+<div class={`hd ${home ? 'home' : 'sub'}`}>
+  <header class="bar" aria-label="Site">
+    <div class="bar-in">
+      <a href="/" class="logo" aria-label="Lear, home">
+        <Gonye size={40} />
+        <span class="fade" style="display:flex"><LearWord width={80} /></span>
+      </a>
+      <nav aria-label="Main" class="fade">
+        {nav.map(([label, href]) => <a href={href} aria-current={current === href ? 'page' : undefined}>{label}</a>)}
+      </nav>
+      <div class="fade meta">
+        <a href="/homes/" class="num phase"><span class="dot sm"></span><span>Phase 1 · <span data-remaining>{remaining}</span> homes remaining</span></a>
+        <a href={PHONE_HREF} class="num tel">{PHONE_SHORT}</a>
+        <a href="/show-home/#book" class="btn light">Book a visit</a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<header class="mhd" aria-label="Site" data-mhd>
+  <div class="mhd-bar">
+    <a href="/" class="logo" aria-label="Lear, home"><Gonye size={36} /></a>
+    <div class="mhd-right">
+      <a href="/show-home/#book" class="btn light">Book a visit</a>
+      <button type="button" class="mhd-menu" aria-expanded="false" aria-controls="mmenu" data-menu-btn>Menu</button>
+    </div>
+  </div>
+  <div class="mmenu" id="mmenu" hidden data-menu>
+    <nav aria-label="Main">
+      {nav.map(([label, href]) => <a href={href} aria-current={current === href ? 'page' : undefined}>{label}</a>)}
+    </nav>
+    <div class="mm-meta num">
+      <a href={PHONE_HREF}>{PHONE}</a>
+      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import drawings from '../svg/arch-drawings.html?raw';
+import { siteImages } from '../lib/plots';
+import '../styles/misc.css';
+
+const rows = [
+  ['Nature', 'Before a line is drawn we walk the field: where the ground falls, where the light comes from, which hedges and trees stay.'],
+  ['Architecture', 'Our architects draw each house for this land, its slope and its view, not for any land.'],
+  ['Construction', 'Our own site team and joiners build it, with limestone and oak from suppliers we know by name.'],
+  ['After the keys', 'One number to call for the first two years, and a 10-year structural guarantee on every home.'],
+];
+---
+<Base
+  current="/architecture/"
+  title="Architecture — How Lear designs and builds in Kildare"
+  description="One small team buys the land, draws the homes and builds them. How we work, from walking the field to the years after the keys."
+  ogPhoto="STUDIO-1"
+>
+  <section class="arch-top">
+    <h1 class="serif wipe onview">Architecture.</h1>
+    <div class="zoomtop asym arch-photo">
+      <Photo name="STUDIO-1" alt={siteImages['STUDIO-1']} class="fill-img" sizes="(max-width: 767px) 100vw, calc(100vw - 150px)" eager />
+    </div>
+  </section>
+
+  <section class="how" aria-labelledby="how-h">
+    <h2 id="how-h" class="serif wipe onview">How we work.</h2>
+    <div class="rows">
+      {rows.map(([t, p], i) => <div class={`row h${i + 1}`} tabindex="0"><h3>{t}</h3><p>{p}</p></div>)}
+    </div>
+    <div class="drs" aria-hidden="true"><Fragment set:html={drawings} /></div>
+  </section>
+
+  <section class="scene sl" aria-label="We draw the homes we build, and build the homes we draw.">
+    <div class="stage">
+      <h2 class="serif"><span class="wipe w1">We draw the homes</span><span class="wipe w2">we build, and build</span><span class="wipe w3">the homes we draw.</span></h2>
+    </div>
+  </section>
+
+  <section class="why">
+    <h2 class="serif wipe onview">Why one team.</h2>
+    <div class="copy">
+      <p>Most new homes pass through three companies: one buys the land, one draws the houses, one builds them. Each hands the job on, and details get lost on the way.</p>
+      <p>At Lear the same small team does all three. The architect who drew the courtyard is on site when its glass goes in. The joiner who makes the kitchen measured the wall it sits against.</p>
+      <p>That is slower, and it is why we build one field at a time.</p>
+      <div class="btns"><a class="btn" href="/homes/">See the homes</a><a class="btn ghost" href="/show-home/#book">Book a visit</a></div>
+    </div>
+  </section>
+  <script>
+    document.querySelectorAll<HTMLElement>('.how .row').forEach((r) => r.addEventListener('click', () => r.focus()));
+  </script>
+</Base>

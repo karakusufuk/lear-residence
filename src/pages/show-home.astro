@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import map from '../svg/showhome-map.html?raw';
+import { nextOpen } from '../lib/nextopen';
+import { MAPS_URL, OFFICE, PHONE, PHONE_HREF } from '../config/site';
+import { homes } from '../lib/plots';
+import '../styles/showhome.css';
+---
+<Base
+  current="/show-home/"
+  title="The show home — Visit Lear, Kildare"
+  description="Plot 1 is a Court, finished and furnished. See when the show home is open, how to find it and book a visit."
+  ogPhoto="COURT-02"
+>
+  <section class="sh-head">
+    <div>
+      <h1 class="serif wipe onview">The show home.</h1>
+      <p>Plot 1 is a Court, finished and furnished. Walk through the rooms, touch the limestone and the oak, and talk to the people who built it.</p>
+    </div>
+    <a class="btn" href="#book">Book a visit</a>
+  </section>
+
+  <section class="zoomtop asym sh-hero">
+    <Photo name="COURT-02" alt="Living room of the show home opening onto the courtyard" class="fill-img" sizes="(max-width: 767px) 100vw, calc(100vw - 150px)" eager />
+  </section>
+  <section class="sh-pair">
+    <div class="opn"><Photo name="COURT-03" alt="Limestone wall, oak window reveal and bronze frame" class="cover" sizes="(max-width: 767px) 100vw, 40vw" /></div>
+    <div class="opn"><Photo name="COURT-01" alt="The courtyard of the show home" class="cover" sizes="(max-width: 767px) 100vw, 60vw" /></div>
+  </section>
+
+  <section class="sh-info">
+    <div>
+      <h2 class="serif wipe onview">When it is open.</h2>
+      <dl class="hours-list num">
+        <div><dt>Thursday</dt><dd>5pm – 7.30pm</dd></div>
+        <div><dt>Saturday</dt><dd>11am – 4pm</dd></div>
+        <div><dt>Sunday</dt><dd>11am – 4pm</dd></div>
+      </dl>
+      <p class="next num"><span class="dot"></span><span>Next open: <span data-next-open>{nextOpen()}</span></span></p>
+    </div>
+    <div>
+      <h2 class="serif wipe onview">How to find it.</h2>
+      <div class="sh-map"><Fragment set:html={map} /></div>
+      <p class="dirs">{OFFICE}. From junction 13 of the M7, take the R415 into town, turn left onto the R445 past the Market Square, then left again down the lane to Lear. Ten minutes' walk from Kildare station. Park on the green; the door is the one in the limestone wall.</p>
+      <a class="btn ghost" href={MAPS_URL} target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>
+  </section>
+
+  <section class="book dark" id="book" aria-labelledby="book-h">
+    <h2 id="book-h" class="serif wipe onview">Book a visit.</h2>
+    <form class="book-grid" data-book novalidate>
+      <div class="book-card">
+        <noscript><p class="lead">Booking needs JavaScript in this demo. Call us on <a href={PHONE_HREF}>{PHONE}</a>.</p></noscript>
+        <div data-step="1">
+          <p class="q" id="q-day">Choose a day</p>
+          <div class="days" role="group" aria-labelledby="q-day" data-days></div>
+          <p class="q gap" id="q-time">Choose a time · 30 minutes</p>
+          <div class="times" role="group" aria-labelledby="q-time" data-times></div>
+          <p class="q gap" id="q-home">Which home interests you? <small>Optional</small></p>
+          <div class="chosen" role="group" aria-labelledby="q-home" data-homes>
+            {homes.map((h) => <button type="button" class="chip" data-home={h.slug} aria-pressed="false">{h.name}</button>)}
+            <button type="button" class="chip" data-home="" aria-pressed="true">Not sure yet</button>
+          </div>
+          <p class="formerr" role="alert" data-err="1" hidden></p>
+          <div class="actions"><button type="button" class="btn" data-next>Continue</button></div>
+        </div>
+        <div data-step="2" hidden>
+          <p class="lead" data-details-lead hidden>Leave your name and number and someone from the sales team will call you.</p>
+          <div class="fields">
+            <label class="fld">Full name<input type="text" name="name" autocomplete="name" required aria-describedby="e-name"><span class="err" id="e-name" aria-live="polite"></span></label>
+            <label class="fld">Mobile number<input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="085 123 4567" required aria-describedby="e-phone"><span class="err" id="e-phone" aria-live="polite"></span></label>
+            <label class="fld" data-email-field>Email<input type="email" name="email" autocomplete="email" required aria-describedby="e-email"><span class="err" id="e-email" aria-live="polite"></span></label>
+          </div>
+          <div class="actions"><button type="button" class="btn ghost" data-back>Back</button><button type="button" class="btn" data-next data-next-label>Send me a code</button></div>
+        </div>
+        <div data-step="3" hidden>
+          <p class="lead">We've sent a 6-digit code to <span class="num" data-phone-hint></span>.</p>
+          <label class="fld code">6-digit code<input type="text" name="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" aria-describedby="e-code"><span class="err" id="e-code" aria-live="polite"></span></label>
+          <p class="resend"><button type="button" data-resend>Resend code</button> <span data-resend-note role="status"></span></p>
+          <div class="actions"><button type="button" class="btn ghost" data-back>Back</button><button type="button" class="btn" data-next>Confirm visit</button></div>
+        </div>
+        <div data-step="4" hidden>
+          <h3 class="serif num" tabindex="-1" data-done-title></h3>
+          <p class="when num" data-done-when></p>
+          <p class="small" data-done-note></p>
+          <div class="actions" data-done-actions>
+            <button type="button" class="btn" data-ics>Add to calendar</button>
+            <button type="button" class="btn ghost" data-restart>Change the time</button>
+          </div>
+        </div>
+      </div>
+      <aside class="book-aside" aria-label="Your visit">
+        <div class="rule2"></div>
+        <dl class="sum num">
+          <div><dt>Day</dt><dd data-sum="day">Choose a day</dd></div>
+          <div><dt>Time</dt><dd data-sum="time">Choose a time</dd></div>
+          <div><dt>Home</dt><dd data-sum="home">Not sure yet</dd></div>
+        </dl>
+        <h3 class="serif">Can't find a time that works?</h3>
+        <div data-callback>
+          <p>Tell us when suits you and we'll call you back.</p>
+          <button type="button" class="btn light" data-callback-btn>Ask us to call you</button>
+        </div>
+        <p class="thanks" data-callback-done role="status" hidden>Thanks. Someone from the sales team will call you within two working days.</p>
+      </aside>
+    </form>
+  </section>
+
+  <script>
+    import '../scripts/booking.ts';
+  </script>
+</Base>

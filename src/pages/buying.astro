@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/misc.css';
+
+const steps = [
+  ['Visit', 'See the show home, walk the site and choose a plot. We give you the floor plan, the specification and the price of every home still for sale.'],
+  ['Reserve', 'A booking deposit of €5,000 holds your plot for four weeks. It comes off the price and is refunded in full if you do not go ahead before contracts are signed.'],
+  ['Sign contracts', 'Your solicitor receives the contract pack. When you sign, you pay 10% of the price, less the booking deposit, and the plot is yours.'],
+  ['Build', 'We send photographs from the site at each stage and invite you to walk the house once the walls and roof are up.'],
+  ['Keys', 'Before closing you walk the finished house with us and list anything that needs attention. We fix it, the balance is paid, and you get the keys.'],
+];
+---
+<Base
+  current="/buying/"
+  title="Buying a Lear home — Reserve to keys | Lear, Kildare"
+  description="Five steps from the first visit to the keys: visit, reserve, sign contracts, build, keys. What it costs beyond the price, and why Help to Buy does not apply."
+>
+  <section class="buy-head">
+    <h1 class="serif wipe onview">Buying a Lear home.</h1>
+    <p>Five steps from the first visit to the keys, with one team answering your questions the whole way.</p>
+  </section>
+  <section class="steps-wrap">
+    <ol class="steps">
+      {steps.map(([t, p]) => <li class="bs rise"><h2 class="serif">{t}</h2><p>{p}</p></li>)}
+    </ol>
+  </section>
+  <section class="cost dark">
+    <h2 class="serif wipe onview">What it costs, beyond the price.</h2>
+    <div class="cost-grid">
+      <div><div class="rule2"></div><p class="serif num big">1%</p><p class="t">Stamp duty on a home up to €1 million. On The Court from €735,000 that is €7,350.</p></div>
+      <div><div class="rule2"></div><p class="serif num big">€0</p><p class="t">Management fees. There is no management company; the green and the road are taken in charge by the council.</p></div>
+      <div><div class="rule2"></div><p class="serif num big">10 years</p><p class="t">HomeBond structural guarantee on every home, plus our own two years of aftercare.</p></div>
+    </div>
+    <p class="note">Help to Buy applies to new homes up to €500,000, so it does not apply at Lear. Your solicitor and mortgage adviser will confirm your own figures.</p>
+  </section>
+  <section class="cta">
+    <h2 class="serif">Start with a visit to the show home.</h2>
+    <a class="btn" href="/show-home/#book">Book a visit</a>
+  </section>
+</Base>

@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Footer from '../components/Footer.astro';
+import kildareMap from '../svg/kildare-map.html?raw';
+import { homes, remaining, siteImages } from '../lib/plots';
+import { nextOpen } from '../lib/nextopen';
+import { HOURS } from '../config/site';
+import '../styles/home.css';
+
+const rows = homes;
+---
+<Base
+  title="Lear — Homes designed and built by one hand, Kildare"
+  description="Three house types, fifteen homes in Phase 1, designed and built by one team on the edge of Kildare town. See what is left, what it costs and when you can visit."
+  home
+  noFooter
+>
+  <!-- hero -->
+  <section class="scene hero">
+    <div class="stage">
+      <Photo name="HERO-DAY" alt={siteImages['HERO-DAY']} class="fill-img" eager />
+      <Photo name="HERO-NIGHT" alt="" class="fill-img night" />
+      <div class="veil"></div>
+      <div class="hero-copy">
+        <h1 class="serif">Homes designed and built by one hand.</h1>
+        <a class="btn light" href="/homes/">See the homes</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- three homes, one landscape -->
+  <section class="scene th" aria-label="Three homes, one landscape">
+    <div class="stage">
+      <h2 class="serif"><span class="wipe w1">Three homes.</span><span class="wipe w2">One landscape.</span></h2>
+      <div class="homes3">
+        <div class="homes3-row">
+          {rows.map((h, i) => (
+            <figure>
+              <div class="frame">
+                <Photo name={h.images.linework} alt="" class={`fill-img d${i + 1}`} sizes="(max-width: 767px) 100vw, 33vw" />
+                <Photo name={h.images.photo} alt={h.name} class="fill-img ph" sizes="(max-width: 767px) 100vw, 33vw" />
+              </div>
+              <figcaption class="lab serif">{h.name}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <svg class="horizon" viewBox="0 0 1328 40" preserveAspectRatio="none" aria-hidden="true">
+          <path class="hz" pathLength="1" d="M0 8 H880 C 960 8, 1000 14, 1060 24 S 1200 36, 1328 36" fill="none" stroke="#0E2A20" stroke-width="2" />
+          <path class="hz" pathLength="1" d="M0 14 H880 C 960 14, 1000 20, 1060 30 S 1200 42, 1328 42" fill="none" stroke="#0E2A20" stroke-width=".8" opacity=".5" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- the homes -->
+  <section class="homes dark" aria-labelledby="homes-h">
+    <div class="homes-head">
+      <h2 id="homes-h" class="serif wipe onview">Choose your home.</h2>
+      <p class="num">Fifteen homes in Phase 1. <span data-remaining>{remaining}</span> are still for sale.</p>
+    </div>
+    {rows.map((h, i) => (
+      <>
+        <article class={`hrow${i === 1 ? ' rev' : ''}`}>
+          <a class="pic" href={`/homes/${h.slug}/`} aria-label={`View ${h.name}`} data-io-center>
+            <Photo name={h.images.photo} alt={`${h.name}: exterior`} class="ph2" sizes="(max-width: 1199px) 100vw, 58vw" />
+            <span class="lw"><Photo name={h.images.lineworkLight} alt="" sizes="(max-width: 1199px) 100vw, 58vw" /></span>
+            <span class="tag">View home</span>
+          </a>
+          <div class="copy">
+            <h3 class="serif">{h.name}</h3>
+            <p class="one">{h.short}</p>
+            <p class="meta num">{h.beds} bedrooms · {h.area} m²</p>
+            <a class="link" href={`/homes/${h.slug}/`}>View {h.name}</a>
+          </div>
+        </article>
+        {i < rows.length - 1 && <div class="rule2"></div>}
+      </>
+    ))}
+    <a href="/homes/" class="homes-foot" style="text-decoration:none;color:var(--cream)">
+      <span class="serif num big"><span data-remaining>{remaining}</span> homes still for sale in Phase 1</span>
+      <span class="btn light">Open the site plan</span>
+    </a>
+  </section>
+
+  <!-- Kildare -->
+  <section class="scene kil" aria-labelledby="kil-h">
+    <div class="stage">
+      <div class="kmap">
+        <div class="mapbox"><Fragment set:html={kildareMap} /></div>
+        <h2 id="kil-h" class="serif wipe ktitle">Everything<br />is close.</h2>
+      </div>
+      <div class="kwin">
+        <div class="kimg">
+          <Photo name="KIL-1" alt={siteImages['KIL-1']} class="fill-img" />
+          <div class="shade"></div>
+        </div>
+        <p class="serif wipe kword">Kildare</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- one team -->
+  <section class="scene ot" aria-labelledby="ot-h">
+    <div class="stage">
+      <h2 id="ot-h" class="serif"><span class="wipe l1">One team. From land to keys.</span></h2>
+      <div class="quad">
+        <span class="hx"></span>
+        <span class="vx"></span>
+        <div class="q q1 wipe"><h3 class="serif">Land</h3><p>We bought one field on the edge of Kildare town and measured every metre of its slope before drawing a line.</p></div>
+        <div class="q q2 wipe"><h3 class="serif">Design</h3><p>Our architects drew three homes for this land, its light and its ground.</p></div>
+        <div class="q q3 wipe"><h3 class="serif">Build</h3><p>Our own site team and joiners, with limestone and oak from suppliers we know by name.</p></div>
+        <div class="q q4 wipe"><h3 class="serif">Home</h3><p>The show home on Plot 1 is finished, furnished and open to visit.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- show home + footer: the zoom settles at the very end of the page -->
+  <div class="endwrap">
+    <section class="showhome dark" aria-labelledby="sh-h">
+      <Photo name="COURT-02" alt="Living room of the show home opening onto the courtyard garden" class="fill-img shimg" />
+      <div class="box">
+        <svg class="sq" width="64" height="64" viewBox="0 0 44 44" aria-hidden="true"><path class="dr" pathLength="1" d="M7 5 V37 H39" fill="none" stroke="#EFEBE2" stroke-width="9" stroke-linecap="square" /><path d="M7 5 V37 H39" fill="none" stroke="#0E2A20" stroke-width="5.6" stroke-linecap="square" /></svg>
+        <h2 id="sh-h" class="serif wipe onview">Visit the show home.</h2>
+        <p class="lede">Plot 1 is a Court, finished and furnished. Walk through it before you choose.</p>
+        <p class="hours num">{HOURS}</p>
+        <p class="next num"><span class="dot"></span><span>Next open: <span data-next-open>{nextOpen()}</span></span></p>
+        <a class="btn light" href="/show-home/#book">Book a visit</a>
+      </div>
+    </section>
+    <Footer />
+  </div>
+</Base>

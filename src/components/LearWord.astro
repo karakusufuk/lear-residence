@@ -1,0 +1,10 @@
+---
+// LEAR drawn with the same hollow double line as the set square; nothing is written under it.
+interface Props { width?: number; edge?: string; fill?: string }
+const { width = 80, edge = '#EFEBE2', fill = '#0E2A20' } = Astro.props;
+const d = 'M5 4 V36 H24 M58 4 H36 V36 H58 M36 20 H54 M68 36 L77 4 H83 L92 36 M72 24 H88 M104 36 V4 H118 Q128 4 128 13 Q128 22 118 22 H104 M116 22 L128 36';
+---
+<svg width={width} height={Math.round(width * 42 / 135)} viewBox="-1 -1 135 42" aria-hidden="true" focusable="false">
+  <path d={d} fill="none" stroke={edge} stroke-width="8.2" stroke-linecap="square" stroke-linejoin="miter" />
+  <path d={d} fill="none" stroke={fill} stroke-width="3.8" stroke-linecap="square" stroke-linejoin="miter" />
+</svg>

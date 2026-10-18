@@ -1,0 +1,703 @@
+{
+ "_note": "Metinler aynen kullanılır. Kat planları rooms3d (metre; izometrik çizilir, level = zemin kotu m), malzeme listesi specLayers (her satır kesitteki bir katmanı yakar). Görsel adları gorseller/ klasöründeki dosyalardır.",
+ "shared": {
+  "advantages": [
+   "Kildare Village 5 min by car",
+   "Dublin Heuston about 30 min by train",
+   "Designed and built by the same team",
+   "10-year structural guarantee"
+  ],
+  "commonSpec": "Every Lear home: triple glazing, mechanical ventilation with heat recovery (MVHR), EV charging point, 10-year structural guarantee (HomeBond).",
+  "showHome": {
+   "plot": 1,
+   "type": "the-court",
+   "hours": "Thursday 5–7.30pm · Saturday and Sunday 11am–4pm",
+   "hoursShort": "Thu 5–7.30pm · Sat and Sun 11am–4pm"
+  },
+  "planNote": "Indicative plan. Plots may be handed."
+ },
+ "types": [
+  {
+   "slug": "the-court",
+   "name": "The Court",
+   "order": 1,
+   "short": "Built around a sheltered courtyard garden.",
+   "home": "A single-storey home built around a sheltered courtyard garden. Every main room opens onto it.",
+   "beds": 3,
+   "baths": 2,
+   "area": 186,
+   "ber": "A2",
+   "from": 735000,
+   "images": {
+    "photo": "COURT-01",
+    "linework": "COURT-LINEWORK",
+    "lineworkLight": "COURT-LINEWORK-LIGHT",
+    "cutaway": "COURT-CUTAWAY",
+    "interior": "COURT-02",
+    "detail": "COURT-03"
+   },
+   "stages": [
+    {
+     "kind": "Photograph",
+     "title": "A quiet front.",
+     "text": "From the lane you see a low limestone wall and one door. Everything else in the house turns inward."
+    },
+    {
+     "kind": "Line drawing",
+     "title": "Drawn around a garden.",
+     "text": "The drawing shows the idea: four wings and one courtyard, with no corridor that does not look onto it."
+    },
+    {
+     "kind": "Cutaway",
+     "title": "Opened up.",
+     "text": "The cutaway shows the 3.2 m living room ceiling, the underfloor heating and the glass that slides fully open to the court."
+    }
+   ],
+   "plan": {
+    "title": "Four wings, one garden.",
+    "text": "Living, kitchen and the main bedroom face south across the courtyard. The front door opens onto it, not onto a hall.",
+    "rooms3d": [
+     {
+      "name": "Living",
+      "x0": 0,
+      "y0": 0,
+      "x1": 6,
+      "y1": 4.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Kitchen / dining",
+      "x0": 6,
+      "y0": 0,
+      "x1": 12,
+      "y1": 4.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Main bedroom",
+      "x0": 12,
+      "y0": 0,
+      "x1": 18,
+      "y1": 4.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Snug",
+      "x0": 0,
+      "y0": 4.5,
+      "x1": 6,
+      "y1": 8,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Utility",
+      "x0": 0,
+      "y0": 8,
+      "x1": 3,
+      "y1": 10.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "WC",
+      "x0": 3,
+      "y0": 8,
+      "x1": 6,
+      "y1": 10.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Boot room",
+      "x0": 0,
+      "y0": 10.5,
+      "x1": 3,
+      "y1": 13,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Bathroom",
+      "x0": 3,
+      "y0": 10.5,
+      "x1": 6,
+      "y1": 13,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Courtyard",
+      "x0": 6,
+      "y0": 4.5,
+      "x1": 12,
+      "y1": 10,
+      "level": 0,
+      "outdoor": true
+     },
+     {
+      "name": "Entrance",
+      "x0": 6,
+      "y0": 10,
+      "x1": 12,
+      "y1": 13,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Walk-in",
+      "x0": 12,
+      "y0": 4.5,
+      "x1": 14.5,
+      "y1": 6.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Ensuite",
+      "x0": 14.5,
+      "y0": 4.5,
+      "x1": 18,
+      "y1": 6.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Bedroom 2",
+      "x0": 12,
+      "y0": 6.5,
+      "x1": 18,
+      "y1": 9.5,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Bedroom 3",
+      "x0": 12,
+      "y0": 9.5,
+      "x1": 18,
+      "y1": 13,
+      "level": 0,
+      "outdoor": false
+     }
+    ]
+   },
+   "alt": {
+    "COURT-01": "The Court: a single-storey limestone home around a courtyard garden",
+    "COURT-LINEWORK": "Line drawing of The Court",
+    "COURT-CUTAWAY": "Cutaway of The Court showing its rooms around the courtyard",
+    "COURT-02": "Living room of The Court opening onto the courtyard garden",
+    "COURT-03": "Limestone wall, oak window reveal and bronze window frame"
+   },
+   "specLayers": [
+    {
+     "label": "Floors",
+     "text": "Honed limestone through the living spaces and the courtyard edge, oak in the bedrooms",
+     "layer": "floor",
+     "callout": "30 mm honed limestone",
+     "calloutSub": "on 75 mm screed, 150 mm insulation"
+    },
+    {
+     "label": "Ceilings",
+     "text": "3.2 m in the living room and kitchen, 2.7 m elsewhere",
+     "layer": "ceiling",
+     "callout": "Roof and ceiling",
+     "calloutSub": "300 mm insulation · 3.2 m clear"
+    },
+    {
+     "label": "Glazing",
+     "text": "Triple-glazed, slim bronze frames; floor to ceiling on all four courtyard sides",
+     "layer": "glazing",
+     "callout": "Triple glazing",
+     "calloutSub": "44 mm units, slim bronze frame"
+    },
+    {
+     "label": "Heating",
+     "text": "Air-to-water heat pump with underfloor heating throughout",
+     "layer": "heat",
+     "callout": "Underfloor heating",
+     "calloutSub": "16 mm pipes at 150 mm centres"
+    },
+    {
+     "label": "Air",
+     "text": "Mechanical ventilation with heat recovery (MVHR)",
+     "layer": "air",
+     "callout": "MVHR",
+     "calloutSub": "fresh air, about 90% of heat kept"
+    },
+    {
+     "label": "Joinery",
+     "text": "Solid oak kitchen, wardrobes and window reveals, made by our own joiners",
+     "layer": "joinery",
+     "callout": "Solid oak",
+     "calloutSub": "reveals and kitchen, our joiners"
+    },
+    {
+     "label": "Outside",
+     "text": "Walled courtyard, rear garden, two parking spaces, EV charging point",
+     "layer": "garden",
+     "callout": "Walled courtyard",
+     "calloutSub": "limestone paving, planted"
+    }
+   ],
+   "ceilingHeight": "3.2 m"
+  },
+  {
+   "slug": "the-line",
+   "name": "The Line",
+   "order": 2,
+   "short": "Rooms in one calm sequence along the garden.",
+   "home": "A long single-storey home that follows the garden edge, its rooms in one calm sequence.",
+   "beds": 3,
+   "baths": 2,
+   "area": 168,
+   "ber": "A2",
+   "from": 665000,
+   "images": {
+    "photo": "LINE-01",
+    "linework": "LINE-LINEWORK",
+    "lineworkLight": "LINE-LINEWORK-LIGHT",
+    "cutaway": "LINE-CUTAWAY",
+    "interior": "LINE-02",
+    "detail": "LINE-03"
+   },
+   "stages": [
+    {
+     "kind": "Photograph",
+     "title": "One long wall of glass.",
+     "text": "Fourteen metres of the house face the garden. From the terrace you can see through every main room at once."
+    },
+    {
+     "kind": "Line drawing",
+     "title": "Drawn as a line.",
+     "text": "The drawing is one straight run: entrance, kitchen, living, bedrooms. Nothing doubles back and no room is left without the garden."
+    },
+    {
+     "kind": "Cutaway",
+     "title": "Opened up.",
+     "text": "The cutaway shows the polished concrete floor that runs the full length, the underfloor heating in it and the sliding doors along the garden side."
+    }
+   ],
+   "plan": {
+    "title": "Every room on the garden.",
+    "text": "The kitchen, the living room and all three bedrooms sit along the south-facing garden wall. Bathrooms, utility and storage sit behind them on the north side.",
+    "rooms3d": [
+     {
+      "name": "Entrance",
+      "x0": 0,
+      "y0": 0,
+      "x1": 2.4,
+      "y1": 7.6,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Study",
+      "x0": 2.4,
+      "y0": 0,
+      "x1": 5.6,
+      "y1": 2.8,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Utility",
+      "x0": 5.6,
+      "y0": 0,
+      "x1": 8.4,
+      "y1": 2.8,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Kitchen / dining",
+      "x0": 2.4,
+      "y0": 2.8,
+      "x1": 10.4,
+      "y1": 7.6,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Living",
+      "x0": 10.4,
+      "y0": 2.8,
+      "x1": 16.9,
+      "y1": 7.6,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Store",
+      "x0": 8.4,
+      "y0": 0,
+      "x1": 16.9,
+      "y1": 2.8,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Main bedroom",
+      "x0": 16.9,
+      "y0": 2.8,
+      "x1": 21.5,
+      "y1": 7.6,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Ensuite",
+      "x0": 16.9,
+      "y0": 0,
+      "x1": 19.5,
+      "y1": 2.8,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Bathroom",
+      "x0": 19.5,
+      "y0": 0,
+      "x1": 25.5,
+      "y1": 2.8,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Bedroom 2",
+      "x0": 21.5,
+      "y0": 2.8,
+      "x1": 25.5,
+      "y1": 7.6,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Bedroom 3",
+      "x0": 25.5,
+      "y0": 2.8,
+      "x1": 29.1,
+      "y1": 7.6,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Wardrobe",
+      "x0": 25.5,
+      "y0": 0,
+      "x1": 29.1,
+      "y1": 2.8,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Terrace",
+      "x0": 2.4,
+      "y0": 7.6,
+      "x1": 16.4,
+      "y1": 10.6,
+      "level": 0,
+      "outdoor": true
+     }
+    ]
+   },
+   "alt": {
+    "LINE-01": "The Line: a long single-storey home along the garden edge",
+    "LINE-LINEWORK": "Line drawing of The Line",
+    "LINE-CUTAWAY": "Cutaway of The Line showing its rooms in one long row",
+    "LINE-02": "The long kitchen and dining room of The Line, open to the terrace",
+    "LINE-03": "Oak cladding, lime render and a bronze sliding door track"
+   },
+   "specLayers": [
+    {
+     "label": "Outside",
+     "text": "Oiled oak boards and lime render; a 14 m garden façade",
+     "layer": "outside",
+     "callout": "Oiled oak boards",
+     "calloutSub": "on 140 mm wood-fibre insulation"
+    },
+    {
+     "label": "Floors",
+     "text": "Polished concrete through the whole house, oak in the bedrooms",
+     "layer": "floor",
+     "callout": "Polished concrete",
+     "calloutSub": "100 mm, heated, sealed"
+    },
+    {
+     "label": "Glazing",
+     "text": "Triple-glazed sliding doors in bronze frames along the garden side",
+     "layer": "glazing",
+     "callout": "Sliding glass doors",
+     "calloutSub": "triple glazed, bronze, 14 m run"
+    },
+    {
+     "label": "Heating",
+     "text": "Air-to-water heat pump with underfloor heating in the concrete floor",
+     "layer": "heat",
+     "callout": "Underfloor heating",
+     "calloutSub": "pipes cast in the concrete"
+    },
+    {
+     "label": "Air",
+     "text": "Mechanical ventilation with heat recovery (MVHR)",
+     "layer": "air",
+     "callout": "MVHR",
+     "calloutSub": "fresh air, about 90% of heat kept"
+    },
+    {
+     "label": "Kitchen",
+     "text": "Oiled oak kitchen with a limestone worktop, made by our own joiners",
+     "layer": "joinery",
+     "callout": "Oak kitchen",
+     "calloutSub": "limestone worktop, our joiners"
+    },
+    {
+     "label": "Garden",
+     "text": "Limestone terrace the length of the house, lawn, two parking spaces, EV charging point",
+     "layer": "garden",
+     "callout": "Limestone terrace",
+     "calloutSub": "the full length of the house"
+    }
+   ],
+   "ceilingHeight": "2.9 m"
+  },
+  {
+   "slug": "the-slope",
+   "name": "The Slope",
+   "order": 3,
+   "short": "Split-level, set into the rising ground.",
+   "home": "A split-level home set into the rising ground, with the Curragh in its biggest window.",
+   "beds": 4,
+   "baths": 3,
+   "area": 214,
+   "ber": "A2",
+   "from": 845000,
+   "images": {
+    "photo": "SLOPE-01",
+    "linework": "SLOPE-LINEWORK",
+    "lineworkLight": "SLOPE-LINEWORK-LIGHT",
+    "cutaway": "SLOPE-CUTAWAY",
+    "interior": "SLOPE-02",
+    "detail": "SLOPE-03"
+   },
+   "stages": [
+    {
+     "kind": "Photograph",
+     "title": "Set into the ground.",
+     "text": "The house steps down with the field. Dry-laid limestone walls hold the garden in three levels beside it."
+    },
+    {
+     "kind": "Line drawing",
+     "title": "Drawn on the contours.",
+     "text": "The drawing follows the slope: the kitchen at the top, the living room four steps below it, the bedrooms in their own wing."
+    },
+    {
+     "kind": "Cutaway",
+     "title": "Opened up.",
+     "text": "The cutaway shows the four wide oak steps between kitchen and living room and the big window that looks west across the Curragh."
+    }
+   ],
+   "plan": {
+    "title": "Two levels, one view.",
+    "text": "The kitchen sits on the upper level by the front door. Four wide oak steps lead down to a sunken living room facing the Curragh. The bedrooms have their own wing.",
+    "rooms3d": [
+     {
+      "name": "Main bedroom",
+      "x0": 0,
+      "y0": 0,
+      "x1": 5,
+      "y1": 4.4,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Ensuite",
+      "x0": 5,
+      "y0": 0,
+      "x1": 7,
+      "y1": 4.4,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Bedroom 2",
+      "x0": 7,
+      "y0": 0,
+      "x1": 11,
+      "y1": 4.4,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Ensuite 2",
+      "x0": 11,
+      "y0": 0,
+      "x1": 12.6,
+      "y1": 4.4,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Bedroom 3",
+      "x0": 0.9,
+      "y0": 4.4,
+      "x1": 4.5,
+      "y1": 7.8,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Bedroom 4",
+      "x0": 0.9,
+      "y0": 7.8,
+      "x1": 4.5,
+      "y1": 11,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Bathroom",
+      "x0": 0.9,
+      "y0": 11,
+      "x1": 4.5,
+      "y1": 13.1,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Living (sunken)",
+      "x0": 4.5,
+      "y0": 4.4,
+      "x1": 12,
+      "y1": 9.9,
+      "level": 0,
+      "outdoor": false
+     },
+     {
+      "name": "Steps",
+      "x0": 12,
+      "y0": 4.4,
+      "x1": 13,
+      "y1": 9.9,
+      "level": 0.3,
+      "outdoor": false
+     },
+     {
+      "name": "Entrance",
+      "x0": 13,
+      "y0": 0,
+      "x1": 15.6,
+      "y1": 3.2,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Utility",
+      "x0": 15.6,
+      "y0": 0,
+      "x1": 18.2,
+      "y1": 3.2,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "WC",
+      "x0": 18.2,
+      "y0": 0,
+      "x1": 20.6,
+      "y1": 3.2,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Kitchen / dining",
+      "x0": 13,
+      "y0": 3.2,
+      "x1": 20.6,
+      "y1": 8.2,
+      "level": 0.6,
+      "outdoor": false
+     },
+     {
+      "name": "Terrace",
+      "x0": 4.5,
+      "y0": 9.9,
+      "x1": 12,
+      "y1": 12.4,
+      "level": 0,
+      "outdoor": true
+     }
+    ]
+   },
+   "alt": {
+    "SLOPE-01": "The Slope: a split-level home set into the rising ground",
+    "SLOPE-LINEWORK": "Line drawing of The Slope",
+    "SLOPE-CUTAWAY": "Cutaway of The Slope showing its two levels",
+    "SLOPE-02": "Oak steps leading down to the sunken living room of The Slope, with fields beyond",
+    "SLOPE-03": "A dry-laid limestone retaining wall with ferns beside the garden steps"
+   },
+   "specLayers": [
+    {
+     "label": "Levels",
+     "text": "Kitchen and living room on two levels, joined by four wide oak steps",
+     "layer": "levels",
+     "callout": "Four oak steps",
+     "calloutSub": "kitchen above, living room below"
+    },
+    {
+     "label": "Outside",
+     "text": "Lime render and limestone; dry-laid limestone retaining walls",
+     "layer": "outside",
+     "callout": "Lime render and limestone",
+     "calloutSub": "on 140 mm insulation"
+    },
+    {
+     "label": "Glazing",
+     "text": "Triple-glazed, bronze frames; a 4.8 m window facing the Curragh",
+     "layer": "glazing",
+     "callout": "4.8 m window",
+     "calloutSub": "triple glazed, faces the Curragh"
+    },
+    {
+     "label": "Heating",
+     "text": "Air-to-water heat pump with underfloor heating throughout",
+     "layer": "heat",
+     "callout": "Underfloor heating",
+     "calloutSub": "on both levels"
+    },
+    {
+     "label": "Air",
+     "text": "Mechanical ventilation with heat recovery (MVHR)",
+     "layer": "air",
+     "callout": "MVHR",
+     "calloutSub": "fresh air, about 90% of heat kept"
+    },
+    {
+     "label": "Floors",
+     "text": "Wide oak boards throughout, limestone at the entrance",
+     "layer": "floor",
+     "callout": "Wide oak boards",
+     "calloutSub": "20 mm, limestone at the door"
+    },
+    {
+     "label": "Garden",
+     "text": "Three levels held by stone walls, two parking spaces, EV charging point",
+     "layer": "garden",
+     "callout": "Dry-laid limestone",
+     "calloutSub": "retaining walls, three levels"
+    }
+   ],
+   "ceilingHeight": "3.0 m"
+  }
+ ],
+ "siteImages": {
+  "HERO-DAY": "The Court at dusk, limestone walls around a courtyard garden",
+  "HERO-NIGHT": "The Court in the evening, its windows lit",
+  "KIL-1": "The square in Kildare town with the round tower and St Brigid's Cathedral",
+  "KIL-2": "The open grassland of the Curragh with gorse and sheep",
+  "STUDIO-1": "The Lear studio: a model of a home, drawings and stone and oak samples"
+ }
+}

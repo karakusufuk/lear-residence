@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import { sitePlanSvg } from '../../lib/siteplan';
+import { plots, homes, statusText, statusDot, countsSentence, typeBySlug, priceText, euro, phase2 } from '../../lib/plots';
+import '../../styles/homes.css';
+
+const planData = plots.map((p) => {
+  const t = typeBySlug(p.type);
+  return { n: p.n, type: p.type, typeName: t.name, status: p.status, statusText: statusText[p.status], dot: statusDot[p.status], beds: t.beds, area: t.area, ber: t.ber, price: p.price, priceText: priceText(p), href: `/homes/${p.type}/?plot=${p.n}` };
+});
+const first = planData.find((p) => p.n === 5) ?? planData[0];
+const legend = [
+  ['Available', '#F4F2ED', '#7A9F45'],
+  ['Reserved', '#E6E1D6', '#9C9482'],
+  ['Sold', '#CDA697', '#8E6252'],
+  ['Show home', '#F4F2ED', '#0E2A20'],
+];
+---
+<Base
+  current="/homes/"
+  title="Site plan and availability — Lear, Kildare"
+  description="Every plot in Phase 1 on one plan: available, reserved, sold and the show home. Pick a plot to see its house type, size and price."
+>
+  <section class="plan-head">
+    <h1 class="serif wipe onview">The site plan.</h1>
+    <p class="num" data-counts>{countsSentence()}. Hover a home to see it, click to open it.</p>
+  </section>
+
+  <section class="plan" aria-label="Site plan">
+    <div class="rule2"></div>
+    <div class="plan-grid" data-plan>
+      <div class="plan-scroll">
+        <div class="plan-svg"><Fragment set:html={sitePlanSvg} /></div>
+      </div>
+      <aside class="plan-card dark" aria-live="polite" data-card>
+        <div class="im">
+          {homes.map((h) => <div class="cover" data-type={h.slug} hidden={h.slug !== first.type}><Photo name={h.images.photo} alt={h.name} class="cover" sizes="(max-width: 767px) 100vw, 330px" /></div>)}
+        </div>
+        <div class="body">
+          <p class="pn num">Plot <span data-f="n">{first.n}</span></p>
+          <h2 class="serif" data-f="typeName">{first.typeName}</h2>
+          <p class="st"><span class="d" data-f="dot" style={`background:${first.dot}`}></span><span data-f="statusText">{first.statusText}</span></p>
+          <p class="spec num"><span data-f="beds">{first.beds}</span> bedrooms · <span data-f="area">{first.area}</span> m² · BER <span data-f="ber">{first.ber}</span></p>
+          <p class="price serif num" data-f="priceText">{first.priceText}</p>
+          <div class="acts"><a class="btn light" href={first.href} data-f="href">View home</a><a class="link" href="/show-home/#book">Book a visit</a></div>
+        </div>
+      </aside>
+    </div>
+    <ul class="legend" aria-label="Legend">
+      {legend.map(([label, bg, edge]) => <li><i style={`background:${bg};box-shadow:inset 0 0 0 1.5px ${edge}`}></i>{label}</li>)}
+    </ul>
+  </section>
+
+  <section class="all" aria-labelledby="all-h">
+    <div class="all-head">
+      <h2 id="all-h" class="serif wipe onview">Every home in Phase 1.</h2>
+      <div class="sorts" role="group" aria-label="Sort">
+        <button type="button" class="srt" data-sort="plot" aria-pressed="true">Plot</button>
+        <button type="button" class="srt" data-sort="home" aria-pressed="false">Home</button>
+        <button type="button" class="srt" data-sort="price" aria-pressed="false">Price</button>
+      </div>
+    </div>
+    <div class="cards" data-cards>
+      {planData.map((p) => (
+        <a class={`pc${p.status === 'sold' ? ' sold' : ''}`} href={p.href} data-n={p.n} data-type={p.typeName} data-price={p.price ?? ''} data-io-center>
+          <div class="im"><Photo name={typeBySlug(p.type).images.photo} alt={`${p.typeName}, plot ${p.n}`} sizes="(max-width: 767px) 100vw, 25vw" /></div>
+          <div class="pb">
+            <div class="pt"><span class="serif tn">{p.typeName}</span><span class="pno num">Plot {p.n}</span></div>
+            <p class="ps"><i style={`background:${p.dot}`}></i>{p.statusText}</p>
+            <p class="pp serif num">{p.priceText}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="phase2-band dark">
+    <div>
+      <h2 class="serif">Phase 2 begins spring 2027.</h2>
+      <p>Fourteen more homes on the western half of the field.</p>
+    </div>
+    <a class="btn light" href="/phase-2/">Join the Phase 2 list</a>
+  </section>
+
+  <script type="application/json" id="plan-data" set:html={JSON.stringify(planData)}></script>
+  <script>
+    import '../../scripts/siteplan.ts';
+  </script>
+</Base>

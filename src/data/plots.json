@@ -1,0 +1,22 @@
+{
+  "_note": "Tek kaynak. Parsel durumu sadece burada değişir; ana sayfadaki 'X homes remaining', Homes planı ve tablosu, ev sayfalarındaki parsel listesi ve kalan sayısı buradan hesaplanır.",
+  "phase1": [
+    { "n": 1,  "type": "the-court", "status": "show",      "price": null },
+    { "n": 2,  "type": "the-court", "status": "sold",      "price": null },
+    { "n": 3,  "type": "the-court", "status": "sold",      "price": null },
+    { "n": 4,  "type": "the-court", "status": "reserved",  "price": 740000 },
+    { "n": 5,  "type": "the-court", "status": "available", "price": 735000 },
+    { "n": 6,  "type": "the-line",  "status": "sold",      "price": null },
+    { "n": 7,  "type": "the-line",  "status": "sold",      "price": null },
+    { "n": 8,  "type": "the-line",  "status": "reserved",  "price": 670000 },
+    { "n": 9,  "type": "the-line",  "status": "available", "price": 665000 },
+    { "n": 10, "type": "the-line",  "status": "available", "price": 675000 },
+    { "n": 11, "type": "the-slope", "status": "sold",      "price": null },
+    { "n": 12, "type": "the-slope", "status": "available", "price": 845000 },
+    { "n": 13, "type": "the-slope", "status": "available", "price": 855000 },
+    { "n": 14, "type": "the-slope", "status": "available", "price": 865000 },
+    { "n": 15, "type": "the-slope", "status": "available", "price": 880000 }
+  ],
+  "phase2": { "homes": 14, "from": "spring 2027", "line": "Phase 1 complete. Phase 2 begins spring 2027." },
+  "statusText": { "available": "Available", "reserved": "Reserved", "sold": "Sold", "show": "Show home" }
+}

@@ -1,0 +1,180 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import { homes, plots, shared, statusText, statusDot, countOf, euro, priceText, phase2, type HomeType } from '../../lib/plots';
+import { HOURS } from '../../config/site';
+import courtPlan from '../../svg/the-court-plan.html?raw';
+import courtSection from '../../svg/the-court-section.html?raw';
+import linePlan from '../../svg/the-line-plan.html?raw';
+import lineSection from '../../svg/the-line-section.html?raw';
+import slopePlan from '../../svg/the-slope-plan.html?raw';
+import slopeSection from '../../svg/the-slope-section.html?raw';
+import '../../styles/house.css';
+
+export function getStaticPaths() {
+  return homes.map((h) => ({ params: { slug: h.slug }, props: { home: h } }));
+}
+const { home } = Astro.props as { home: HomeType };
+const svgs: Record<string, { plan: string; section: string }> = {
+  'the-court': { plan: courtPlan, section: courtSection },
+  'the-line': { plan: linePlan, section: lineSection },
+  'the-slope': { plan: slopePlan, section: slopeSection },
+};
+const { plan: planRaw, section } = svgs[home.slug];
+const img = home.images;
+const mine = plots.filter((p) => p.type === home.slug);
+const availableOfType = countOf('available', home.slug);
+const others = homes.filter((h) => h.slug !== home.slug);
+const rooms = home.plan.rooms3d.map((r, i) => ({ id: `r${i}`, name: r.name, size: `${(r.x1 - r.x0).toFixed(1)} × ${(r.y1 - r.y0).toFixed(1)} m` }));
+const plan = planRaw.replace(/<g class="rm (r\d+)" data-r="r(\d+)" tabindex="0"/g, (_m, c, i) => {
+  const r = rooms[+i];
+  return `<g class="rm ${c}" data-r="r${i}" tabindex="0" role="group" aria-label="${r.name}, ${r.size}"`;
+});
+const bookHref = `/show-home/?type=${home.slug}#book`;
+const isCourt = home.slug === 'the-court';
+const facts: [string, string][] = [
+  ['Bedrooms', String(home.beds)],
+  ['Bathrooms', String(home.baths)],
+  ['Floor area', `${home.area} m²`],
+  ['BER', home.ber],
+  ['From', euro(home.from)],
+];
+const stageClass = ['', 's2', 's3'];
+const textClass = ['t1', 't2', 't3'];
+const sectionRaw = section;
+---
+<Base
+  current="/homes/"
+  title={`${home.name} — ${home.beds}-bedroom home in Kildare | Lear`}
+  description={`${home.home} ${home.beds} bedrooms, ${home.area} m², BER ${home.ber}, from ${euro(home.from)}. ${availableOfType} of 5 homes available in Phase 1.`}
+  ogPhoto={img.photo}
+>
+  <section class="hh">
+    <p class="crumb"><a href="/homes/">Homes</a> <span>/</span> {home.name}</p>
+    <div class="hh-top">
+      <div>
+        <h1 class="serif wipe onview">{home.name}</h1>
+        <p class="lede">{home.home}</p>
+      </div>
+      <div class="side">
+        <p class="avail num"><span class="dot"></span>{availableOfType} of 5 available</p>
+        <a class="btn" href={bookHref}>Book a visit</a>
+      </div>
+    </div>
+    <dl class="facts">
+      {facts.map(([k, v]) => <div><dt>{k}</dt><dd class="serif num">{v}</dd></div>)}
+    </dl>
+  </section>
+
+  <section class="zoomtop asym exterior">
+    <Photo name={img.photo} alt={home.alt[img.photo]} class="fill-img" sizes="(max-width: 767px) 100vw, calc(100vw - 150px)" eager />
+  </section>
+
+  <section class="scene seq" aria-label="Photograph, line drawing and cutaway">
+    <div class="stage">
+      {home.stages.map((s, i) => (
+        <div class="stg">
+          <div class={`vis ${stageClass[i]}`}>
+            {i === 0 && <Photo name={img.photo} alt="" class="fill-img" sizes="(max-width: 767px) 100vw, 58vw" />}
+            {i === 1 && <Photo name={img.linework} alt={home.alt[img.linework]} class="fill-img" sizes="(max-width: 767px) 100vw, 58vw" />}
+            {i === 2 && <Photo name={img.cutaway} alt={home.alt[img.cutaway]} class="fill-img" sizes="(max-width: 767px) 100vw, 58vw" />}
+          </div>
+          <div class={`txt ${stageClass[i]}`}>
+            <div class={`wipe ${textClass[i]}`}>
+              <h2 class="serif">{s.title}</h2>
+              <p>{s.text}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+      <div class="bars" aria-hidden="true">
+        <span class="bar2"><span class="b1"></span></span><span class="bar2"><span class="b2"></span></span><span class="bar2"><span class="b3"></span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="fp" aria-labelledby="plan-h" data-rooms>
+    <div class="lead">
+      <h2 id="plan-h" class="serif wipe onview">{home.plan.title}</h2>
+      <p>{home.plan.text}</p>
+      <ul class="rooms">
+        {rooms.map((r) => <li class="rl" data-r={r.id} tabindex="0"><b>{r.name}</b><span class="num">{r.size}</span></li>)}
+      </ul>
+      <p class="note">{shared.planNote}</p>
+    </div>
+    <div class="map"><Fragment set:html={plan} /></div>
+  </section>
+
+  <section class="mat" aria-labelledby="mat-h" data-mats>
+    <div class="lead">
+      <h2 id="mat-h" class="serif wipe onview">What it is made of.</h2>
+      <ul class="mats">
+        {home.specLayers.map((l) => (
+          <li class="mr" data-layer={l.layer} tabindex="0"><span class="mt serif">{l.label}</span><span class="tx">{l.text}</span></li>
+        ))}
+      </ul>
+      <p class="common">{shared.commonSpec}</p>
+    </div>
+    <div class="sec"><Fragment set:html={sectionRaw} /></div>
+  </section>
+
+  <section class="pair" aria-label="Details and interior">
+    <div class="opn"><Photo name={img.detail} alt={home.alt[img.detail]} class="cover" sizes="(max-width: 767px) 100vw, 40vw" /></div>
+    <div class="opn"><Photo name={img.interior} alt={home.alt[img.interior]} class="cover" sizes="(max-width: 767px) 100vw, 60vw" /></div>
+  </section>
+
+  <section class="adv" aria-label="Every Lear home">
+    <div class="rule2"></div>
+    <ul>
+      <li><span class="big serif num">5 min</span><span class="sm">to Kildare Village</span></li>
+      <li><span class="big serif num">30 min</span><span class="sm">to Dublin Heuston by train</span></li>
+      <li><span class="big serif">One team</span><span class="sm">designed it and built it</span></li>
+      <li><span class="big serif num">10 years</span><span class="sm">structural guarantee</span></li>
+    </ul>
+    <div class="rule2"></div>
+  </section>
+
+  <section class="plots" aria-labelledby="plots-h">
+    <div class="plots-head">
+      <h2 id="plots-h" class="serif wipe onview">{home.name} in Phase 1.</h2>
+      <a class="link" href="/homes/">See every plot on the site plan</a>
+    </div>
+    <div class="plots-grid" data-plots>
+      {mine.map((p) => (
+        <a class={`pc${p.status === 'sold' ? ' sold' : ''}`} href={p.status === 'show' ? '/show-home/' : '/show-home/#book'} data-n={p.n} data-io-center>
+          <div class="im"><Photo name={img.photo} alt={`${home.name}, plot ${p.n}`} sizes="(max-width: 767px) 50vw, 20vw" /></div>
+          <div class="pb">
+            <div class="pt"><span class="serif num pn">Plot {p.n}</span><span class="ps"><i style={`background:${p.status === 'show' ? '#0E2A20' : statusDot[p.status]}`}></i>{statusText[p.status]}</span></div>
+            <p class="pp serif num">{p.status === 'show' ? 'Open to visit' : priceText(p)}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="walk dark">
+    <div>
+      <h2 class="serif wipe onview">{isCourt ? 'Walk through The Court.' : 'Visit the show home.'}</h2>
+      <p>{isCourt ? 'The show home on Plot 1 is a Court.' : `The show home on Plot 1 is a Court, built with the same materials and the same team as ${home.name}.`}</p>
+      <p class="hrs num">{HOURS}</p>
+    </div>
+    <a class="btn light" href={bookHref}>Book a visit</a>
+  </section>
+
+  <section class="others" aria-labelledby="oth-h">
+    <h2 id="oth-h" class="serif wipe onview">The other two homes.</h2>
+    <div class="others-grid">
+      {others.map((o) => (
+        <a class="oh" href={`/homes/${o.slug}/`} data-io-center>
+          <div class="im"><Photo name={o.images.photo} alt={o.name} sizes="(max-width: 767px) 100vw, 50vw" /></div>
+          <div class="row"><span class="serif nm">{o.name}</span><span class="serif num fr">From {euro(o.from)}</span></div>
+          <p class="meta num">{o.beds} bedrooms · {o.area} m² · {countOf('available', o.slug)} of 5 available</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <script>
+    import '../../scripts/house.ts';
+  </script>
+</Base>

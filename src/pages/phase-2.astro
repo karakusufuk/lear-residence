@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { siteImages } from '../lib/plots';
+import '../styles/misc.css';
+---
+<Base
+  current="/homes/"
+  title="Phase 2 — Fourteen more homes from spring 2027 | Lear"
+  description="Phase 2 brings fourteen more homes to the western half of the field from spring 2027. Join the list to hear first."
+  ogPhoto="KIL-2"
+>
+  <section class="zoomtop asym p2-hero">
+    <Photo name="KIL-2" alt={siteImages['KIL-2']} class="fill-img" sizes="(max-width: 767px) 100vw, calc(100vw - 150px)" eager />
+    <div class="veil"></div>
+    <div class="copy">
+      <h1 class="serif wipe onview">Phase 2.</h1>
+      <p class="num">Fourteen more homes on the western half of the field, from spring 2027.</p>
+    </div>
+  </section>
+
+  <section class="p2-body">
+    <div class="info">
+      <h2 class="big serif wipe onview">The same three homes, the same team.</h2>
+      <p>Phase 2 uses The Court, The Line and The Slope, with the plots facing west towards the Curragh. Prices and plots are released to the list first, a month before they go on general sale.</p>
+      <ul class="facts-list">
+        <li><b>Homes</b><span class="num">14</span></li>
+        <li><b>Plots released</b><span class="num">Spring 2027</span></li>
+        <li><b>First keys</b><span class="num">Summer 2028</span></li>
+      </ul>
+    </div>
+    <form class="formcard dark" data-demo novalidate aria-labelledby="p2-h">
+      <h2 id="p2-h" class="serif">Join the list.</h2>
+      <div class="fields" data-fields>
+        <label class="fld">Full name<input type="text" name="name" autocomplete="name" required /><span class="err" aria-live="polite"></span></label>
+        <label class="fld">Email<input type="email" name="email" autocomplete="email" required /><span class="err" aria-live="polite"></span></label>
+        <label class="fld">Which home?<select name="home"><option>Not sure yet</option><option>The Court</option><option>The Line</option><option>The Slope</option></select></label>
+        <label class="fld">When are you hoping to move?<select name="when"><option>In 2027</option><option>In 2028</option><option>Just looking</option></select></label>
+      </div>
+      <button type="submit" class="btn light" style="justify-self:start" data-hide-on-success>Join the Phase 2 list</button>
+      <div class="ok" data-success hidden role="status"><p class="serif">You're on the list.</p><p>We'll email you when Phase 2 plots and prices are released, before they go on general sale.</p></div>
+    </form>
+  </section>
+  <script>
+    import '../scripts/forms.ts';
+  </script>
+</Base>

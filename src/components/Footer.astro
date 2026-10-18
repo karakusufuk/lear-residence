@@ -1,0 +1,21 @@
+---
+import Gonye from './Gonye.astro';
+import LearWord from './LearWord.astro';
+import { PHONE, PHONE_HREF, EMAIL, OFFICE_LINES } from '../config/site';
+---
+<footer class="foot">
+  <div class="rule2"></div>
+  <div class="foot-grid">
+    <a href="#top" class="foot-logo" aria-label="Back to the top">
+      <Gonye size={44} edge="#0E2A20" fill="#F9F7F3" />
+      <LearWord width={86} edge="#0E2A20" fill="#F9F7F3" />
+    </a>
+    <div><p class="lbl">Sales office</p><p class="val">{OFFICE_LINES[0]}<br />{OFFICE_LINES[1]}</p></div>
+    <div class="num"><p class="lbl">Open</p><p class="val">Thursday 5–7.30pm<br />Saturday and Sunday 11am–4pm</p></div>
+    <div class="num"><p class="lbl">Talk to us</p><p class="val"><a href={PHONE_HREF}>{PHONE}</a><br /><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p></div>
+  </div>
+  <div class="foot-legal">
+    <p>© 2026 Lear · Concept site · <a href="/privacy/">Privacy</a></p>
+    <p>Designed by Ufuk Karakuş</p>
+  </div>
+</footer>
