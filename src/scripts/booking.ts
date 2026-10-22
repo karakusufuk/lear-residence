@@ -1,3 +1,4 @@
+import { openConcept } from './concept';
 // Show home visit booking: demo flow, nothing leaves the browser.
 const root = document.querySelector<HTMLFormElement>('[data-book]');
 
@@ -193,13 +194,13 @@ if (root) {
       showErr(1, ''); go(2);
     } else if (st.step === 2) {
       if (!checkDetails()) return;
-      if (st.mode === 'callback') { finishCallback(); return; }
+      if (st.mode === 'callback') { openConcept('callback', finishCallback, document.activeElement as HTMLElement | null); return; }
       $('[data-phone-hint]').textContent = phoneHint(val('phone'));
       $('[data-resend-note]').textContent = '';
       go(3);
     } else if (st.step === 3) {
       if (!/^\d{6}$/.test(val('code'))) { setErr('code', 'Enter the 6-digit code.'); input('code').focus(); return; }
-      finishVisit();
+      openConcept('visit', finishVisit, document.activeElement as HTMLElement | null);
     }
   }
 

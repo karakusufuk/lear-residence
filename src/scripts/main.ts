@@ -1,3 +1,4 @@
+import './concept';
 import { nextOpen } from '../lib/nextopen';
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;

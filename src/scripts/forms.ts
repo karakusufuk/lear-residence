@@ -1,3 +1,4 @@
+import { openConcept } from './concept';
 // Demo forms: visible labels, format checks, a friendly result. Nothing is sent anywhere.
 document.querySelectorAll<HTMLFormElement>('form[data-demo]').forEach((form) => {
   const ok = form.querySelector<HTMLElement>('[data-success]');
@@ -20,9 +21,12 @@ document.querySelectorAll<HTMLFormElement>('form[data-demo]').forEach((form) => 
       if (text && !first) first = el;
     });
     if (first) { (first as HTMLInputElement).focus(); return; }
-    fields?.setAttribute('hidden', '');
-    form.querySelectorAll<HTMLElement>('[data-hide-on-success]').forEach((el) => el.setAttribute('hidden', ''));
-    if (ok) { ok.hidden = false; ok.setAttribute('tabindex', '-1'); ok.focus({ preventScroll: true }); }
+    const done = () => {
+      fields?.setAttribute('hidden', '');
+      form.querySelectorAll<HTMLElement>('[data-hide-on-success]').forEach((el) => el.setAttribute('hidden', ''));
+      if (ok) { ok.hidden = false; ok.setAttribute('tabindex', '-1'); ok.focus({ preventScroll: true }); }
+    };
+    openConcept(form.dataset.concept === 'register' ? 'register' : 'enquiry', done, document.activeElement as HTMLElement | null);
   });
 });
 
