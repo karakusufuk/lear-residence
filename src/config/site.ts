@@ -1,7 +1,7 @@
 export const PHONE = '+353 1 234 5182';
 export const PHONE_SHORT = '01 234 5182';
 export const PHONE_HREF = 'tel:+35312345182';
-export const EMAIL = 'sales@learhomes.ie';
+export const EMAIL = 'sales@lear.ufuk.ie';
 export const OFFICE = 'Plot 1, Lear, Kildare town, Co. Kildare R51';
 export const OFFICE_LINES = ['Plot 1, Lear', 'Kildare town, Co. Kildare R51'];
 export const HOURS = 'Thursday 5–7.30pm · Saturday and Sunday 11am–4pm';
