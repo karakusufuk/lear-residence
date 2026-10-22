@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 
 // Placeholder domain, see SAPMALAR.md
 export default defineConfig({
-  site: 'https://lear.example',
+  server: { port: 4402, host: '127.0.0.1' },
+  site: 'https://lear.ufuk.ie',
   trailingSlash: 'always',
   build: { format: 'directory', inlineStylesheets: 'always' },
   integrations: [sitemap()],
