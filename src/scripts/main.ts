@@ -5,8 +5,9 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const supported = typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()');
 const forced = new URLSearchParams(location.search).has('sdpoly');
 
-// Fallback for browsers without CSS scroll-driven animations (only on tablet/desktop, only with motion allowed).
-if ((!supported || forced) && !reduced && matchMedia('(min-width: 768px)').matches) {
+// Fallback for browsers without CSS scroll-driven animations (desktop only, only with motion allowed).
+// Below 1200px the scroll scenes are laid out statically, so phones and tablets never need it.
+if ((!supported || forced) && !reduced && matchMedia('(min-width: 1200px)').matches) {
   import('./scroll-poly').then((m) => m.init());
 }
 
@@ -18,25 +19,50 @@ const stamp = () => {
 stamp();
 setInterval(stamp, 60_000);
 
-// Mobile menu and header (hides on scroll down, returns on scroll up, hidden at the footer)
+// Mobile and tablet menu and header (hides on scroll down, returns on scroll up, hidden at the footer).
+// The header only shows below 1200px, so none of this reaches the desktop view.
 const mhd = document.querySelector<HTMLElement>('[data-mhd]');
 const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
 const menu = document.querySelector<HTMLElement>('[data-menu]');
 if (mhd && btn && menu) {
-  const setOpen = (open: boolean) => {
+  const label = btn.querySelector<HTMLElement>('[data-menu-label]');
+  const setOpen = (open: boolean, restoreFocus = true) => {
     menu.hidden = !open;
     btn.setAttribute('aria-expanded', String(open));
-    btn.textContent = open ? 'Close' : 'Menu';
+    if (label) label.textContent = open ? 'Close' : 'Menu';
+    mhd.classList.toggle('is-open', open);
     document.documentElement.style.overflow = open ? 'hidden' : '';
-    if (open) mhd.classList.remove('is-hidden');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      mhd.classList.remove('is-hidden');
+      menu.querySelector<HTMLElement>('a[href]')?.focus({ preventScroll: true });
+    } else if (restoreFocus) btn.focus({ preventScroll: true });
   };
   btn.addEventListener('click', () => setOpen(menu.hidden));
   menu.addEventListener('click', (e) => {
-    if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    const t = e.target as HTMLElement;
+    // a tap on the dimmed backdrop closes the menu
+    if (t === menu) { setOpen(false); return; }
+    // phone and email open the concept note on top of the menu; every other link closes it
+    const a = t.closest<HTMLAnchorElement>('a');
+    if (a && !/^(tel:|mailto:)/.test(a.getAttribute('href') || '')) setOpen(false, false);
   });
   addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !menu.hidden) { setOpen(false); btn.focus(); }
+    if (menu.hidden || e.defaultPrevented) return;
+    if (e.key === 'Escape') { setOpen(false); return; }
+    if (e.key === 'Tab') {
+      // keep keyboard focus inside the header bar and the open menu
+      const els = [...mhd.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter((el) => el.getClientRects().length > 0);
+      if (!els.length) return;
+      const first = els[0], last = els[els.length - 1];
+      if (!mhd.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
+  // turning a tablet or widening the window past the breakpoint never leaves the page locked
+  const small = matchMedia('(max-width: 1199px)');
+  small.addEventListener('change', () => { if (!small.matches && !menu.hidden) setOpen(false, false); });
   let last = scrollY;
   let atFoot = false;
   addEventListener('scroll', () => {

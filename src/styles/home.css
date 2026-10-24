@@ -125,35 +125,76 @@
   .hrow { gap: 40px; padding: 36px 0; }
   .hrow .pic { height: 340px; flex-basis: 100%; }
   .hrow .copy { flex-basis: 100%; }
+  .showhome .box { padding: 40px; }
+
+  /* The three pinned scenes below (three homes, Kildare, one team) hold the screen for 1300-2700px of scroll and
+     sit half drawn or blank for most of it; with a finger flick they read as empty pages. On phones and tablets
+     they are normal sections: everything is laid out at once and each block only wipes or draws itself in as it
+     reaches the screen. (Browsers without scroll-driven animations show them finished.) */
+
+  /* three homes, one landscape: the three drawings in a row on the horizon, each turning into its photograph */
+  .th { --sh: auto; height: auto; }
+  .th .stage { position: relative; height: auto; min-height: 0; padding: var(--section) var(--pad) 96px; overflow: visible; }
+  .th h2 { white-space: normal; }
+  .th .w1, .th .w2 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .th .homes3 { position: relative; left: auto; right: auto; bottom: auto; margin-top: 64px; }
+  .th .homes3-row { gap: 24px; }
+  .th .frame { height: auto; aspect-ratio: 5 / 4; }
+  .th figcaption { font-size: 26px; }
+  .th .hz { animation: none; }
+  .th .d1 { animation: draw linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .th .d2 { animation: draw linear both; animation-timeline: view(); animation-range: entry 10% cover 35%; }
+  .th .d3 { animation: draw linear both; animation-timeline: view(); animation-range: entry 20% cover 40%; }
+  .th .ph { animation: fadeIn linear both; animation-timeline: view(); animation-range: cover 40% cover 60%; }
+  .th .lab { animation: none; }
+
+  /* Kildare: the photograph with its name, then the title and the map cropped around Lear */
+  .kil { --sh: auto; height: auto; }
+  .kil .stage { position: relative; height: auto; min-height: 0; overflow: visible; display: flex; flex-direction: column; background: var(--bg); }
+  .kil .kwin { position: relative; inset: auto; order: 1; margin: var(--section) var(--asym-r) 0 var(--asym-l); height: min(70svh, 620px); animation: none; clip-path: none; }
+  .kil .kimg { animation: none; }
+  .kil .kword { left: 36px; bottom: 36px; font-size: clamp(76px, 19vw, 200px); animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; opacity: 1; }
+  .kil .kmap { position: relative; inset: auto; order: 2; animation: none; padding: 72px 0 var(--section); display: flex; flex-direction: column; }
+  .kil .ktitle { order: -1; position: static; margin: 0 var(--pad) 28px; animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .kil .mapbox { position: relative; inset: auto; height: 60.7vw; overflow: clip; }
+  .kil .mapbox > svg { position: absolute; inset: auto; width: 198.6vw; max-width: none; height: auto; left: -71.7vw; top: -30.3vw; }
+  .kil .k-ring, .kil .k-ring2, .kil .k-stop, .kil .k-lear { animation: none; }
+  .kil .mapbox .k-ring { animation: stroke linear both; animation-timeline: view(); animation-range: entry 20% cover 45%; }
+  .kil .k-ring2 { display: none; }
+
+  /* one team: the four steps on the double-line cross, all at once */
+  .ot { --sh: auto; height: auto; }
+  .ot .stage { position: relative; height: auto; min-height: 0; overflow: visible; padding: var(--section) var(--pad); }
+  .ot h2 { white-space: normal; }
+  .ot .l1 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .ot .quad { flex: none; margin-top: 56px; }
+  .ot .hx, .ot .vx { animation: none; }
   .ot .q { flex-direction: column; gap: 10px; align-items: flex-start; }
   .ot .q h3 { flex: none; }
-  .ot .q p { max-width: 300px; }
-  .ot .q1 { padding-right: 24px; }
-  .ot .q2 { padding-left: 32px; }
-  .ot .q3 { padding-right: 24px; }
-  .ot .q4 { padding-left: 32px; }
-  .showhome .box { padding: 40px; }
+  .ot .q p { max-width: 320px; }
+  .ot .q1, .ot .q2, .ot .q3, .ot .q4 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .ot .q1 { padding: 0 24px 40px 0; }
+  .ot .q2 { padding: 0 0 40px 32px; }
+  .ot .q3 { padding: 40px 24px 0 0; }
+  .ot .q4 { padding: 40px 0 0 32px; }
 }
 
-/* ---------- phone and reduced motion: calm, full width, nothing pinned except the hero ---------- */
+/* ---------- phone: calm, full width, nothing pinned except the hero ---------- */
 @media (max-width: 767px) {
   .hero { --sh: calc(100svh + 50svh); }
   .hero .hero-copy { left: 20px; right: 20px; bottom: 36px; gap: 24px; }
   .hero h1 { font-size: clamp(44px, 12.5vw, 56px); }
 
   /* three homes: two-line title, three drawings stacked, drawn when they reach the screen */
-  .th { --sh: auto; height: auto; }
-  .th .stage { position: relative; height: auto; padding: var(--section) 20px 0; overflow: visible; }
+  .th .stage { padding: var(--section) 20px 0; }
   .th h2 { font-size: clamp(36px, 11vw, 48px); }
-  .th .w1, .th .w2 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
   .th .homes3 { position: static; margin-top: 44px; }
   .th .homes3-row { flex-direction: column; align-items: stretch; gap: 44px; }
-  .th .frame { height: auto; aspect-ratio: 16 / 10; }
-  .th figcaption { margin-top: 14px; font-size: 26px; }
+  .th .frame { aspect-ratio: 16 / 10; }
+  .th figcaption { margin-top: 14px; }
   .th .horizon { display: none; }
-  .th .d1, .th .d2, .th .d3 { animation: draw linear both; animation-timeline: view(); animation-range: entry 10% cover 30%; }
-  .th .ph { animation: fadeIn linear both; animation-timeline: view(); animation-range: cover 32% cover 58%; }
-  .th .lab { animation: none; }
+  .th .d1, .th .d2, .th .d3 { animation-range: entry 10% cover 30%; }
+  .th .ph { animation-range: cover 32% cover 58%; }
 
   .homes { padding: var(--section) 20px 72px; }
   .homes-head { padding-bottom: 24px; }
@@ -166,29 +207,21 @@
   .homes-foot { padding-top: 32px; margin-top: 24px; }
   .homes-foot .big { font-size: 32px; }
 
-  .kil { --sh: auto; height: auto; }
-  .kil .stage { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; background: var(--bg); }
-  .kil .kwin { position: relative; inset: auto; order: 1; margin: 76px 20px 0; height: min(70svh, 560px); animation: none; clip-path: none; }
-  .kil .kimg { animation: none; }
-  .kil .kword { left: 20px; bottom: 24px; font-size: clamp(76px, 25vw, 120px); animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; opacity: 1; }
-  .kil .kmap { position: relative; inset: auto; order: 2; animation: none; padding: 64px 0 var(--section); display: flex; flex-direction: column; }
-  .kil .ktitle { order: -1; position: static; margin: 0 20px 20px; animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .kil .kwin { margin: 76px 20px 0; height: min(70svh, 560px); }
+  .kil .kword { left: 20px; bottom: 24px; font-size: clamp(76px, 25vw, 120px); }
+  .kil .kmap { padding-top: 64px; }
+  .kil .ktitle { margin: 0 20px 20px; }
   /* the map is cropped to the area around Lear and scaled up so the stop labels stay readable */
-  .kil .mapbox { position: relative; inset: auto; height: 68vw; overflow: clip; }
-  .kil .mapbox > svg { position: absolute; inset: auto; width: 225vw; max-width: none; height: auto; left: -93.75vw; top: -39vw; }
+  .kil .mapbox { height: 68vw; }
+  .kil .mapbox > svg { width: 225vw; left: -93.75vw; top: -39vw; }
   .kil .k-stop text:not([font-size="34"]) { font-size: 21px; }
   .kil .k-stop tspan { font-size: 18px; }
-  .kil .k-ring, .kil .k-ring2, .kil .k-stop, .kil .k-lear { animation: none; }
-  .kil .mapbox .k-ring { animation: stroke linear both; animation-timeline: view(); animation-range: entry 20% cover 45%; }
-  .kil .k-ring2 { display: none; }
 
-  .ot { --sh: auto; height: auto; }
-  .ot .stage { position: relative; height: auto; overflow: visible; padding: var(--section) 20px; }
-  .ot h2 { white-space: normal; font-size: clamp(38px, 11vw, 52px); }
-  .ot .l1 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
-  .ot .quad { display: block; margin-top: 36px; flex: none; }
+  .ot .stage { padding: var(--section) 20px; }
+  .ot h2 { font-size: clamp(38px, 11vw, 52px); }
+  .ot .quad { display: block; margin-top: 36px; }
   .ot .hx, .ot .vx { display: none; }
-  .ot .q, .ot .q1, .ot .q2, .ot .q3, .ot .q4 { padding: 28px 0; border-top: 1px solid var(--line); flex-direction: column; gap: 10px; animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .ot .q, .ot .q1, .ot .q2, .ot .q3, .ot .q4 { padding: 28px 0; border-top: 1px solid var(--line); flex-direction: column; gap: 10px; }
   .ot .q:last-child { border-bottom: 1px solid var(--line); }
   .ot .q h3 { flex: none; font-size: 44px; }
   .ot .q p { font-size: 18px; max-width: none; }
@@ -203,22 +236,25 @@
   .hero .stage { position: relative; height: 100svh; }
   .hero .night { opacity: 0; }
   .hero .night, .th .ph, .th .d1, .th .d2, .th .d3, .th .lab { opacity: 1; }
-  .th { --sh: auto; height: auto; }
-  .th .stage { position: relative; height: auto; padding-bottom: var(--section); overflow: visible; }
   .th .hz { stroke-dasharray: none; }
   .th .ph { opacity: 1; }
   .th .d1, .th .d2, .th .d3 { clip-path: none; }
+  .kil .kimg { opacity: 1; transform: none; }
+  .kil .kword { opacity: 1; }
+  .kil .k-ring { stroke-dasharray: none; }
+  .kil .k-ring2 { display: none; }
+  .ot .hx, .ot .vx { transform: none; }
+}
+/* desktop with reduced motion: the scenes unpinned (phones and tablets already have their own static layout above) */
+@media (prefers-reduced-motion: reduce) and (min-width: 1200px) {
+  .th { --sh: auto; height: auto; }
+  .th .stage { position: relative; height: auto; padding-bottom: var(--section); overflow: visible; }
   .kil { --sh: auto; height: auto; }
   .kil .stage { position: relative; height: auto; overflow: visible; display: flex; flex-direction: column; }
   .kil .kwin { position: relative; inset: auto; order: 1; margin: 104px var(--asym-r) 0 var(--asym-l); height: min(70svh, 640px); clip-path: none; }
-  .kil .kimg { opacity: 1; transform: none; }
-  .kil .kword { opacity: 1; }
   .kil .kmap { position: relative; inset: auto; order: 2; padding: 64px 0 var(--section); opacity: 1; }
   .kil .ktitle { position: static; margin: 0 var(--pad) 24px; }
   .kil .mapbox { position: relative; inset: auto; height: auto; aspect-ratio: 1440 / 880; }
-  .kil .k-ring { stroke-dasharray: none; }
-  .kil .k-ring2 { display: none; }
   .ot { --sh: auto; height: auto; }
   .ot .stage { position: relative; height: auto; overflow: visible; padding-bottom: var(--section); }
-  .ot .hx, .ot .vx { transform: none; }
 }

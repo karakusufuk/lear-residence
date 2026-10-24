@@ -106,31 +106,49 @@
 .nf .btns { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 44px; }
 
 @media (max-width: 1199px) {
+  /* how we work: on desktop a step opens on hover, one at a time, with its drawing large on the right.
+     Touch screens have no hover: every step is open, each with its own drawing beside it. */
+  .how { display: grid; grid-template-columns: minmax(0, 1fr) clamp(120px, 21vw, 220px); column-gap: clamp(24px, 4.5vw, 56px); align-items: stretch; padding: 120px var(--pad); }
+  .how > h2 { grid-column: 1 / -1; }
+  .how .rows, .drs { display: contents; }
+  .how .row { grid-column: 1; padding: 32px 0; min-height: 0; }
+  .how .h1 { grid-row: 2; } .how .h2 { grid-row: 3; } .how .h3 { grid-row: 4; } .how .h4 { grid-row: 5; border-bottom: 1px solid var(--line); }
+  .how .row h3, .how .row:hover h3, .how .row:focus h3 { color: var(--bottle); font-size: clamp(48px, 7.6vw, 84px); white-space: normal; }
+  /* !important: the desktop "first step open while nothing is hovered" rule is far more specific and caps the text */
+  .how .row p { max-height: none !important; opacity: 1 !important; overflow: visible; margin-top: 16px !important; font-size: 19px; transition: none; }
+  .how .dr { position: relative; top: auto; right: auto; grid-column: 2; align-self: start; width: 100%; height: auto; aspect-ratio: 1; margin-top: 32px; transform: none; opacity: 1; transition: none; }
+  .how .d1 { grid-row: 2; } .how .d2 { grid-row: 3; } .how .d3 { grid-row: 4; } .how .d4 { grid-row: 5; }
+  /* drawn, with one even line weight at this smaller size */
+  .how .dl { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; vector-effect: non-scaling-stroke; stroke-width: 1.2px; }
+
+  /* the pinned three-line statement becomes a plain section, each line wiping in as it arrives */
+  .sl { --sh: auto; height: auto; }
+  .sl .stage { position: relative; height: auto; min-height: 0; overflow: visible; padding: var(--section) var(--pad); }
+  .sl .w1, .sl .w2, .sl .w3 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+
   .bs { gap: 32px; }
   .bs h2 { flex-basis: 260px; }
+  .bs:hover { padding-left: 0; }
   .formcard { padding: 36px; }
+  .p2-hero { margin-top: 60px; }
+  .ct dd a { display: inline-flex; align-items: center; min-height: 44px; }
 }
 @media (max-width: 767px) {
   .arch-top { padding-top: 104px; }
   .arch-top h1 { margin-bottom: 32px; font-size: clamp(40px, 12.4vw, 60px); }
   .arch-photo { height: auto; aspect-ratio: 4 / 3; margin: 0; }
   .arch-photo img { height: 100%; }
-  .how { padding: var(--section) var(--pad); }
+  .how { grid-template-columns: minmax(0, 1fr) 64px; column-gap: 16px; padding: var(--section) var(--pad); }
   .how > h2 { margin-bottom: 32px; }
-  .how .row { padding: 22px 0; min-height: 56px; }
-  .how .row h3 { font-size: clamp(40px, 12.5vw, 56px); white-space: normal; }
-  .how .rows { max-width: none; }
-  .drs { display: grid; margin-top: 32px; max-width: 360px; }
-  .how .dr { position: relative; grid-area: 1 / 1; right: auto; top: auto; width: 100%; height: auto; aspect-ratio: 1; transform: none; }
-  .sl { --sh: auto; height: auto; }
-  .sl .stage { position: relative; height: auto; overflow: visible; padding: var(--section) var(--pad); }
+  .how .row { padding: 24px 0; min-height: 56px; }
+  .how .row h3, .how .row:hover h3, .how .row:focus h3 { font-size: clamp(32px, 9.2vw, 44px); }
+  .how .row p { margin-top: 12px !important; font-size: 17px; }
+  .how .dr { margin-top: 26px; }
   .sl h2 { font-size: clamp(26px, 8.3vw, 56px); }
-  .sl .w1, .sl .w2, .sl .w3 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
   .why { padding: 20px var(--pad) var(--section); gap: 28px; }
   .buy-head { padding-top: 110px; }
   .steps-wrap { padding-bottom: 72px; }
   .bs { flex-direction: column; gap: 14px; padding: 28px 0; }
-  .bs:hover { padding-left: 0; }
   .bs h2 { flex: none; }
   .bs p { font-size: 19px; }
   .cost, .cta { padding: var(--section) var(--pad); }
@@ -143,7 +161,6 @@
   .ct dl { margin-top: 36px; }
   .ct dl > div { flex-direction: column; gap: 4px; }
   .ct dd { text-align: left; }
-  .ct dd a { display: inline-flex; align-items: center; min-height: 44px; }
   .legal { padding: 110px var(--pad) var(--section); }
   .nf { padding: 120px var(--pad) var(--section); }
 }

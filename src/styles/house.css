@@ -126,16 +126,55 @@
 .oh .fr { font-size: 26px; }
 .oh .meta { margin-top: 8px; color: var(--ink-2); }
 
+/* the plain-text version of each drawing callout (shown under the material rows on phones and tablets, where the
+   callouts inside the section drawing get too small to read) */
+.mr .co-in { display: none; }
+
 @media (max-width: 1199px) {
-  .seq .stage { gap: 40px; }
-  .seq .txt p { font-size: 18px; }
+  /* photo -> line -> cutaway: the pinned crossfade needs 1800px of scroll and shows one stage at a time.
+     On phones and tablets the three stages are three rows, all visible, each text wiping in as it arrives. */
+  .seq { --sh: auto; height: auto; }
+  .seq .stage { position: relative; height: auto; min-height: 0; display: block; padding: 24px var(--pad) 0; overflow: visible; }
+  .seq .stg { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: center; }
+  .seq .stg + .stg { margin-top: 64px; }
+  .seq .vis { grid-column: 1; grid-row: 1; height: auto; aspect-ratio: 4 / 3; animation: none; }
+  .seq .txt { grid-column: 2; grid-row: 1; min-height: 0; background: none; animation: none; }
+  .seq .t1, .seq .t2, .seq .t3 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+  .seq .bars { display: none; }
+  .seq .txt p { font-size: 18px; margin-top: 18px; }
+
   .fp, .mat { padding-top: 90px; padding-bottom: 90px; gap: 40px; }
   .mat { padding-top: 30px; }
   .plots-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; }
   .adv ul { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
-  .mat .sec { position: static; flex-basis: 100%; }
-  .mat .lead { flex-basis: 100%; }
+
+  /* floor plan: the plan stays in view under the header while the rooms below it are tapped */
+  .fp { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 0; }
+  .fp .lead { display: contents; }
+  .fp h2 { order: 1; }
+  .fp .lead > p:not(.note) { order: 2; }
+  .fp .map { order: 3; flex: none; position: sticky; top: 72px; z-index: 5; margin-top: 32px; padding: 12px 0; background: var(--bg); box-shadow: 0 1px 0 #E1DBD0; }
+  .fp .map svg { max-height: 42svh; }
+  .fp .rooms { order: 4; margin-top: 8px; }
+  .fp .note { order: 5; }
+  .rl { min-height: 44px; align-items: center; }
+
+  /* what it is made of: the section drawing stays in view above the rows that light it up */
+  .mat { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 24px; }
+  .mat .lead { display: contents; }
+  .mat h2 { order: 1; }
+  .mat .sec { order: 2; position: sticky; top: 72px; z-index: 5; width: 100%; flex: none; padding: 20px; }
+  .mat .sec svg { max-height: 40svh; }
+  .mat .mats { order: 3; margin-top: 8px; }
+  .mat .common { order: 4; }
+  .mr { min-height: 56px; }
+  /* the sticky plan and drawing follow the header: under it while it shows, at the top edge while it is hidden */
+  .fp .map, .mat .sec { transition: top .45s var(--ease); }
+  body:has(.mhd.is-hidden) .fp .map { top: 0; }
+  body:has(.mhd.is-hidden) .mat .sec { top: 10px; }
+  .mr .co-in { display: block; margin-top: 6px; font-size: 15px; color: var(--ink-2); }
+  .mr .co-in b { font-weight: 600; color: var(--ink); }
 }
 @media (max-width: 767px) {
   .hh { padding-top: 110px; padding-bottom: 36px; }
@@ -143,28 +182,22 @@
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 36px; }
   .exterior { display: none; }
 
-  .seq { --sh: auto; height: auto; }
-  .seq .stage { position: relative; height: auto; display: block; padding: 0 var(--pad) var(--section); overflow: visible; }
-  .seq .stg { display: block; margin-bottom: 56px; }
-  .seq .vis { height: auto; aspect-ratio: 16 / 10; animation: none; margin: 0 calc(var(--pad) * -1); }
-  .seq .txt { min-height: 0; margin-top: 24px; background: none; animation: none; }
-  .seq .t1, .seq .t2, .seq .t3 { animation: wipeIn linear both; animation-timeline: view(); animation-range: entry 0% cover 30%; }
-  .seq .bars { display: none; }
+  .seq .stage { padding: 0 var(--pad); }
+  .seq .stg { display: block; }
+  .seq .stg + .stg { margin-top: 56px; }
+  .seq .vis { aspect-ratio: 16 / 10; margin: 0 calc(var(--pad) * -1); }
+  .seq .txt { margin-top: 24px; }
   .seq h2 { font-size: 40px; }
   .seq .txt p { margin-top: 16px; }
 
-  .fp { padding: var(--section) var(--pad) 40px; gap: 28px; }
-  .fp .map { flex-basis: 100%; overflow-x: auto; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); }
-  .fp .map svg { min-width: 560px; }
-  .rooms { grid-template-columns: 1fr; margin-top: 24px; }
-  .rl { min-height: 44px; align-items: center; }
-  .mat { padding: 40px var(--pad) var(--section); display: flex; flex-direction: column; gap: 24px; }
-  .mat .lead { display: contents; }
-  .mat h2 { order: 1; }
-  .mat .sec { order: 2; position: sticky; top: 64px; z-index: 5; padding: 14px; width: 100%; flex: none; }
-  .mat .mats { order: 3; margin-top: 8px; }
-  .mat .common { order: 4; }
-  .mr { gap: 14px; flex-wrap: wrap; min-height: 56px; }
+  .fp { padding: var(--section) var(--pad) 40px; }
+  .fp .map { top: 64px; margin-top: 24px; padding: 8px 0; }
+  .fp .map svg { max-height: none; }
+  .rooms { grid-template-columns: 1fr; }
+  .mat { padding: 40px var(--pad) var(--section); }
+  .mat .sec { top: 64px; padding: 14px; }
+  .mat .sec svg { max-height: none; }
+  .mr { gap: 14px; flex-wrap: wrap; }
   .mr .mt { flex-basis: 100%; font-size: 24px; }
   .pair { grid-template-columns: 1fr; padding: 0 0 var(--section); gap: 16px; }
   .pair .opn { height: auto; aspect-ratio: 4 / 3; }
@@ -181,7 +214,8 @@
   .others { padding: var(--section) var(--pad); }
   .others-grid { grid-template-columns: 1fr; gap: 40px; }
 }
-@media (prefers-reduced-motion: reduce) {
+/* desktop with reduced motion: the sequence unpinned (phones and tablets already have their own static layout above) */
+@media (prefers-reduced-motion: reduce) and (min-width: 1200px) {
   .seq { --sh: auto; height: auto; }
   .seq .stage { position: relative; height: auto; display: block; padding: 0 var(--pad) var(--section); overflow: visible; }
   .seq .stg { display: block; margin-bottom: 56px; }

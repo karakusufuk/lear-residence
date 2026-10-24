@@ -92,6 +92,11 @@ if (root) {
       const panel = root!.querySelector<HTMLElement>(`[data-step="${step}"]`)!;
       const target = panel.querySelector<HTMLElement>('input:not([hidden]), h3[tabindex]') ?? panel.querySelector<HTMLElement>('button');
       target?.focus({ preventScroll: true });
+      // phones and tablets: the steps differ a lot in height, so the new step can start above the screen; bring it up
+      if (matchMedia('(max-width: 1199px)').matches) {
+        const top = root!.querySelector<HTMLElement>('.book-card')!.getBoundingClientRect().top;
+        if (top < 64 || top > innerHeight * 0.5) scrollBy({ top: top - 76 });
+      }
     }
     if (step === 3) startResend();
   }

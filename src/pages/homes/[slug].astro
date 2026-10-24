@@ -110,7 +110,7 @@ const sectionRaw = section;
       <h2 id="mat-h" class="serif wipe onview">What it is made of.</h2>
       <ul class="mats">
         {home.specLayers.map((l) => (
-          <li class="mr" data-layer={l.layer} tabindex="0"><span class="mt serif">{l.label}</span><span class="tx">{l.text}</span></li>
+          <li class="mr" data-layer={l.layer} tabindex="0"><span class="mt serif">{l.label}</span><span class="tx">{l.text}<span class="co-in num"><b>{l.callout}</b> · {l.calloutSub}</span></span></li>
         ))}
       </ul>
       <p class="common">{shared.commonSpec}</p>

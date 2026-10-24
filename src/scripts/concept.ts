@@ -37,7 +37,8 @@ function close() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finish = () => {
     root.hidden = true;
-    document.documentElement.style.overflow = '';
+    // the mobile/tablet menu can sit underneath (phone and email links in it): keep the page locked while it is open
+    document.documentElement.style.overflow = document.querySelector('[data-menu]:not([hidden])') ? 'hidden' : '';
     const cb = afterClose; afterClose = null;
     if (cb) cb(); else lastFocus?.focus({ preventScroll: true });
     // after a flow step the original trigger may be hidden; focus only if still visible

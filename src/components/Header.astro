@@ -35,19 +35,22 @@ const nav = [
 
 <header class="mhd" aria-label="Site" data-mhd>
   <div class="mhd-bar">
-    <a href="/" class="logo" aria-label="Lear, home"><Gonye size={36} /></a>
+    <a href="/" class="logo" aria-label="Lear, home"><Gonye size={36} /><span class="mhd-word"><LearWord width={68} /></span></a>
     <div class="mhd-right">
       <a href="/show-home/#book" class="btn light">Book a visit</a>
-      <button type="button" class="mhd-menu" aria-expanded="false" aria-controls="mmenu" data-menu-btn>Menu</button>
+      <button type="button" class="mhd-menu" aria-expanded="false" aria-controls="mmenu" data-menu-btn><span data-menu-label>Menu</span><span class="mhd-ico" aria-hidden="true"><i></i><i></i></span></button>
     </div>
   </div>
   <div class="mmenu" id="mmenu" hidden data-menu>
-    <nav aria-label="Main">
-      {nav.map(([label, href]) => <a href={href} aria-current={current === href ? 'page' : undefined}>{label}</a>)}
-    </nav>
-    <div class="mm-meta num">
-      <a href={PHONE_HREF}>{PHONE}</a>
-      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    <div class="mm-panel">
+      <nav aria-label="Main">
+        {nav.map(([label, href]) => <a href={href} aria-current={current === href ? 'page' : undefined}>{label}</a>)}
+      </nav>
+      <div class="mm-meta num">
+        <a href="/homes/" class="mm-phase"><span class="dot sm"></span><span>Phase 1 · <span data-remaining>{remaining}</span> homes remaining</span></a>
+        <a href={PHONE_HREF}>{PHONE}</a>
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+      </div>
     </div>
   </div>
 </header>

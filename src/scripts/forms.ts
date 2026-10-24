@@ -24,7 +24,14 @@ document.querySelectorAll<HTMLFormElement>('form[data-demo]').forEach((form) => 
     const done = () => {
       fields?.setAttribute('hidden', '');
       form.querySelectorAll<HTMLElement>('[data-hide-on-success]').forEach((el) => el.setAttribute('hidden', ''));
-      if (ok) { ok.hidden = false; ok.setAttribute('tabindex', '-1'); ok.focus({ preventScroll: true }); }
+      if (ok) {
+        ok.hidden = false; ok.setAttribute('tabindex', '-1'); ok.focus({ preventScroll: true });
+        // phones and tablets: the form collapses to the thank-you line, which can land above the screen
+        if (matchMedia('(max-width: 1199px)').matches) {
+          const r = ok.getBoundingClientRect();
+          if (r.top < 64 || r.bottom > innerHeight) scrollBy({ top: r.top - innerHeight / 3 });
+        }
+      }
     };
     openConcept(form.dataset.concept === 'register' ? 'register' : 'enquiry', done, document.activeElement as HTMLElement | null);
   });
