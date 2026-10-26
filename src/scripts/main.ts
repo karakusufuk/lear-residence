@@ -11,6 +11,54 @@ if ((!supported || forced) && !reduced && matchMedia('(min-width: 1200px)').matc
   import('./scroll-poly').then((m) => m.init());
 }
 
+
+// Hero day to night: one scroll gesture plays the whole change and holds on the night frame, whatever the force
+// of the gesture (wheel inertia, key repeat and a continuing swipe are absorbed). The page moves on with the next gesture.
+const heroScene = document.querySelector<HTMLElement>('.scene.hero');
+if (heroScene && !reduced) {
+  const travel = () => heroScene.offsetHeight - innerHeight; // the pinned scroll length of the hero
+  const lock = () => document.body.style.overflow === 'hidden';
+  const active = () => travel() > 8 && scrollY < travel() - 2 && !lock();
+  let running = false, locked = false, lastWheel = 0, touched = false, y0 = 0;
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const go = () => {
+    if (running) return;
+    const from = scrollY, to = travel(), ms = 900 + 1300 * Math.min(1, (to - from) / Math.max(1, to));
+    running = true; locked = true;
+    const t0 = performance.now();
+    const frame = (now: number) => {
+      const t = Math.min(1, (now - t0) / ms);
+      scrollTo({ top: from + (to - from) * ease(t), behavior: 'instant' });
+      if (t < 1) requestAnimationFrame(frame); else running = false;
+    };
+    requestAnimationFrame(frame);
+  };
+  addEventListener('wheel', (e) => {
+    const now = performance.now(), fresh = now - lastWheel > 140;
+    lastWheel = now;
+    if (e.ctrlKey || e.deltaY === 0 || Math.abs(e.deltaY) < Math.abs(e.deltaX) || lock()) return;
+    if (running || (locked && !fresh)) { e.preventDefault(); return; }
+    locked = false;
+    if (fresh && e.deltaY > 0 && active()) { e.preventDefault(); go(); }
+  }, { passive: false });
+  addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; touched = false; locked = false; }, { passive: true });
+  addEventListener('touchmove', (e) => {
+    if (lock()) return;
+    if (running || touched) { if (e.cancelable) e.preventDefault(); return; }
+    if (y0 - e.touches[0].clientY > 10 && active()) { touched = true; if (e.cancelable) e.preventDefault(); go(); }
+  }, { passive: false });
+  addEventListener('touchend', () => { touched = false; }, { passive: true });
+  addEventListener('keydown', (e) => {
+    if (e.altKey || e.ctrlKey || e.metaKey || lock()) return;
+    const t = e.target as HTMLElement;
+    if (/^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(t.tagName) || t.isContentEditable) return;
+    if (!(e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'End' || (e.key === ' ' && !e.shiftKey))) return;
+    if (running || (locked && e.repeat)) { e.preventDefault(); return; }
+    locked = false;
+    if (active()) { e.preventDefault(); go(); }
+  });
+}
+
 // Live "Next open" lines
 const stamp = () => {
   const text = nextOpen();
