@@ -146,12 +146,16 @@ html.sd-poly *, html.sd-poly *::before, html.sd-poly *::after { animation: none 
   .hd { display: none; }
   .mhd { display: block; position: fixed; left: 0; right: 0; top: 0; z-index: 60; transition: transform .45s var(--ease); }
   .mhd.is-hidden { transform: translateY(-100%); }
-  .mhd-bar { position: relative; z-index: 1; height: 60px; background: var(--bottle); color: var(--cream); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 max(10px, env(safe-area-inset-right)) 0 max(18px, env(safe-area-inset-left)); box-shadow: 0 1px 0 rgba(239, 235, 226, .22); }
-  .mhd-bar .logo { display: flex; align-items: center; gap: 12px; min-width: 44px; min-height: 44px; text-decoration: none; }
+  .mhd-bar { position: relative; z-index: 1; height: 60px; background: var(--bottle); color: var(--cream); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 8px; padding: 0 max(18px, env(safe-area-inset-right)) 0 max(18px, env(safe-area-inset-left)); box-shadow: 0 1px 0 rgba(239, 235, 226, .22); }
+  /* menu left, logo on the exact centre of the bar (equal 1fr side columns), Book a visit right */
+  .mhd-bar .logo { grid-column: 2; display: flex; align-items: center; justify-content: center; gap: 12px; min-width: 44px; min-height: 44px; text-decoration: none; }
+  .mhd-bar .logo:focus-visible, .mhd-book:focus-visible { outline: 2px solid var(--moss); outline-offset: 2px; border-radius: var(--radius); }
   .mhd-word { display: flex; }
-  .mhd-right { display: flex; align-items: center; gap: 6px; }
-  .mhd .btn { padding: 11px 18px; font-size: 15px; min-height: 44px; }
-  .mhd-menu { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-width: 64px; min-height: 44px; padding: 0 10px; border: 0; background: transparent; color: var(--cream); font: 600 15px var(--font-body); cursor: pointer; border-radius: var(--radius); }
+  .mhd-menu { grid-column: 1; justify-self: start; margin-left: -10px; }
+  .mhd-book { grid-column: 3; justify-self: end; white-space: nowrap; }
+  .mhd .btn { padding: 11px 16px; font-size: 15px; min-height: 44px; }
+  .mhd-menu { display: inline-flex; align-items: center; justify-content: flex-start; gap: 10px; min-width: 44px; min-height: 44px; padding: 0 10px; border: 0; background: transparent; color: var(--cream); font: 600 15px var(--font-body); cursor: pointer; border-radius: var(--radius); }
+  .mhd-menu:focus:not(:focus-visible) { outline: none; }
   .mhd-menu:focus-visible { outline: 2px solid var(--moss); outline-offset: 0; }
   .mhd-ico { position: relative; flex: none; width: 18px; height: 12px; }
   .mhd-ico i { position: absolute; left: 0; right: 0; top: 2px; height: 1.5px; background: currentColor; transition: transform .35s var(--ease), top .35s var(--ease); }

@@ -35,11 +35,9 @@ const nav = [
 
 <header class="mhd" aria-label="Site" data-mhd>
   <div class="mhd-bar">
+    <button type="button" class="mhd-menu" aria-expanded="false" aria-controls="mmenu" data-menu-btn><span class="mhd-ico" aria-hidden="true"><i></i><i></i></span><span data-menu-label>Menu</span></button>
     <a href="/" class="logo" aria-label="Lear, home"><Gonye size={36} /><span class="mhd-word"><LearWord width={68} /></span></a>
-    <div class="mhd-right">
-      <a href="/show-home/#book" class="btn light">Book a visit</a>
-      <button type="button" class="mhd-menu" aria-expanded="false" aria-controls="mmenu" data-menu-btn><span data-menu-label>Menu</span><span class="mhd-ico" aria-hidden="true"><i></i><i></i></span></button>
-    </div>
+    <a href="/show-home/#book" class="btn light mhd-book">Book a visit</a>
   </div>
   <div class="mmenu" id="mmenu" hidden data-menu>
     <div class="mm-panel">
