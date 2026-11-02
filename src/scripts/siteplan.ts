@@ -5,11 +5,14 @@ const byN = new Map(data.map((p) => [p.n, p]));
 const grid = document.querySelector<HTMLElement>('[data-plan]');
 const card = document.querySelector<HTMLElement>('[data-card]');
 const touch = matchMedia('(hover: none)');
+const stories = document.querySelector<HTMLElement>('[data-stories]');
+const phone = matchMedia('(max-width: 767px)');
 
 function select(n: number) {
   const p = byN.get(n);
   if (!p || !card || !grid) return;
   grid.querySelectorAll('.pl').forEach((g) => g.classList.toggle('is-sel', g.classList.contains(`pl${n}`)));
+  stories?.querySelectorAll<HTMLElement>('[data-story]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.story! === n)));
   const set = (k: string, v: string) => card.querySelectorAll<HTMLElement>(`[data-f="${k}"]`).forEach((el) => (el.textContent = v));
   set('n', String(p.n)); set('typeName', p.typeName); set('statusText', p.statusText);
   set('beds', String(p.beds)); set('area', String(p.area)); set('ber', p.ber); set('priceText', p.priceText);
@@ -20,7 +23,13 @@ function select(n: number) {
 
 const small = matchMedia('(max-width: 1199px)');
 if (grid) {
-  select(5);
+  // phones open on the first home of the row, the show home; wider screens on plot 5
+  select(phone.matches && stories ? 1 : 5);
+  // phones: tapping a home in the row changes the card in place; the page itself never moves
+  stories?.addEventListener('click', (e) => {
+    const b = (e.target as Element).closest<HTMLElement>('[data-story]');
+    if (b) select(+b.dataset.story!);
+  });
   grid.querySelectorAll<SVGAElement>('a[data-plot]').forEach((a) => {
     const n = +a.dataset.plot!;
     a.addEventListener('mouseenter', () => { if (!touch.matches) select(n); });

@@ -34,6 +34,8 @@ import { CASE_STUDY_URL } from '../config/site';
     .cm-card { width: 100%; max-height: 92svh; border-radius: 12px 12px 0 0; padding: 32px 20px calc(28px + env(safe-area-inset-bottom)); transform: translateY(100%); }
     .cm-actions .btn { width: 100%; }
   }
+  /* phones never show the note (concept.ts demoInert) */
+  @media (max-width: 767px) { .cm { display: none !important; } }
   @media (prefers-reduced-motion: reduce) {
     .cm, .cm-card { transition: none; transform: none; }
   }

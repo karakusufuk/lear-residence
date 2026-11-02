@@ -12,12 +12,16 @@ const BODY: Record<Kind, string> = {
 };
 
 const root = document.querySelector<HTMLElement>('[data-concept-modal]');
+// Phones: a demo action does nothing at all. No note opens, nothing dials or opens, and the last button of a
+// flow stays in place, faded and inactive (booking.ts, forms.ts).
+export const demoInert = matchMedia('(max-width: 767px)');
 const FOCUSABLE = 'a[href], button:not([disabled])';
 let lastFocus: HTMLElement | null = null;
 let afterClose: (() => void) | null = null;
 let closeTimer = 0;
 
 export function openConcept(kind: Kind, onClose?: () => void, origin?: HTMLElement | null) {
+  if (demoInert.matches) return;
   if (!root) { onClose?.(); return; }
   clearTimeout(closeTimer);
   lastFocus = origin ?? (document.activeElement as HTMLElement | null);
@@ -75,6 +79,7 @@ if (root) {
     else if (a.dataset.concept === 'address') kind = 'address';
     if (!kind) return;
     e.preventDefault();
+    if (demoInert.matches) { a.blur(); return; }
     openConcept(kind, undefined, a);
   });
 }

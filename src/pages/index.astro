@@ -19,13 +19,16 @@ const rows = homes;
   <!-- hero -->
   <section class="scene hero">
     <div class="stage">
-      <Photo name="HERO-DAY" alt={siteImages['HERO-DAY']} class="fill-img" eager />
-      <Photo name="HERO-NIGHT" alt="" class="fill-img night" />
+      <div class="hero-pic">
+        <Photo name="HERO-DAY" alt={siteImages['HERO-DAY']} class="fill-img" eager />
+        <Photo name="HERO-NIGHT" alt="" class="fill-img night" />
+      </div>
       <div class="veil"></div>
       <div class="hero-copy">
         <h1 class="serif">Homes designed and built by one hand.</h1>
         <a class="btn light" href="/homes/">See the homes</a>
       </div>
+      <span class="hero-load" aria-hidden="true"></span>
     </div>
   </section>
 

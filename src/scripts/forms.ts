@@ -1,4 +1,4 @@
-import { openConcept } from './concept';
+import { openConcept, demoInert } from './concept';
 // Demo forms: visible labels, format checks, a friendly result. Nothing is sent anywhere.
 document.querySelectorAll<HTMLFormElement>('form[data-demo]').forEach((form) => {
   const ok = form.querySelector<HTMLElement>('[data-success]');
@@ -9,8 +9,14 @@ document.querySelectorAll<HTMLFormElement>('form[data-demo]').forEach((form) => 
     if (err) err.textContent = text;
   };
   form.addEventListener('input', (e) => msg(e.target as HTMLInputElement, ''));
+  // phones: the send button stays visible, faded and inactive (a demo sends nothing)
+  const send = [...form.querySelectorAll<HTMLButtonElement>('button[type="submit"]')];
+  const syncSend = () => send.forEach((b) => (b.disabled = demoInert.matches));
+  syncSend();
+  demoInert.addEventListener('change', syncSend);
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (demoInert.matches) return;
     let first: HTMLInputElement | null = null;
     form.querySelectorAll<HTMLInputElement>('[required]').forEach((el) => {
       let text = '';
@@ -40,4 +46,4 @@ document.querySelectorAll<HTMLFormElement>('form[data-demo]').forEach((form) => 
 // ?topic=phase2 preselects the subject on the contact form
 const topic = new URLSearchParams(location.search).get('topic');
 const sel = document.querySelector<HTMLSelectElement>('select[name="about"]');
-if (topic && sel && [...sel.options].some((o) => o.value === topic)) sel.value = topic;
+if (topic && sel && [...sel.options].some((o) => o.value === topic)) { sel.value = topic; sel.dispatchEvent(new Event('change')); }

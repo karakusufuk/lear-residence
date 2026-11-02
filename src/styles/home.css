@@ -3,6 +3,8 @@
 /* ---------- hero: day to night across the pinned hero ---------- */
 .hero { --sh: calc(100svh + 820px); view-timeline-name: --hero; }
 .hero .stage { background: #1B2A22; }
+.hero .hero-pic { display: contents; }
+.hero .hero-load { display: none; }
 .hero .night { animation: fadeIn linear both; animation-timeline: --hero; animation-range: contain 5% contain 85%; }
 .hero .veil { position: absolute; inset: 0; background: rgba(10, 20, 15, .34); }
 .hero .hero-copy { position: absolute; left: var(--pad); right: var(--pad); bottom: 72px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
@@ -181,9 +183,18 @@
 
 /* ---------- phone: calm, full width, nothing pinned except the hero ---------- */
 @media (max-width: 767px) {
-  .hero { --sh: calc(100svh + 50svh); }
-  .hero .hero-copy { left: 20px; right: 20px; bottom: 36px; gap: 24px; }
+  /* hero: nothing tied to scrolling. The whole house under the header (never cropped or stretched), bottle green
+     below it with the title, and day turning to night on its own once the photographs are in (main.ts). */
+  .hero { --sh: auto; height: auto; }
+  .hero .stage { position: relative; height: auto; min-height: 100vh; min-height: 100svh; overflow: visible; display: flex; flex-direction: column; padding-top: 60px; background: var(--bottle); }
+  .hero .hero-pic { display: block; position: relative; flex: none; aspect-ratio: 1672 / 941; overflow: clip; background: #1B2A22; }
+  .hero .night { animation: none; opacity: 0; transition: opacity 2.8s cubic-bezier(.45, 0, .55, 1); }
+  .hero.is-night .night { opacity: 1; }
+  .hero .veil { display: none; }
+  .hero .hero-copy { position: static; flex: 1 0 auto; flex-direction: column; justify-content: center; align-items: flex-start; flex-wrap: nowrap; gap: 28px; padding: 40px 20px 44px; }
   .hero h1 { font-size: clamp(44px, 12.5vw, 56px); }
+  .hero .hero-load { display: block; position: fixed; left: 50%; top: 50%; z-index: 5; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; border: 2px solid rgba(239, 235, 226, .22); border-top-color: var(--cream); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s, visibility 0s .3s; animation: heroSpin .9s linear infinite; }
+  .hero .hero-load.is-on { opacity: 1; visibility: visible; transition: opacity .3s; }
 
   /* three homes: two-line title, three drawings stacked, drawn when they reach the screen */
   .th .stage { padding: var(--section) 20px 0; }
@@ -209,6 +220,9 @@
 
   .kil .kwin { margin: 76px 20px 0; height: min(70svh, 560px); }
   .kil .kword { left: 20px; bottom: 24px; font-size: clamp(76px, 25vw, 120px); }
+  /* the cover word waits for the middle of the screen, then writes itself in (main.ts) */
+  .kil .kword { animation: none; -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+  .kil .kword.is-in { animation: wipeIn 1.4s cubic-bezier(.65, 0, .25, 1) both; animation-timeline: auto; }
   .kil .kmap { padding-top: 64px; }
   .kil .ktitle { margin: 0 20px 20px; }
   /* the map is cropped to the area around Lear and scaled up so the stop labels stay readable */
@@ -216,6 +230,14 @@
   .kil .mapbox > svg { width: 225vw; left: -93.75vw; top: -39vw; }
   .kil .k-stop text:not([font-size="34"]) { font-size: 21px; }
   .kil .k-stop tspan { font-size: 18px; }
+  /* the rings run on the map box itself (Safari measures each SVG circle on its own and started them late):
+     they begin as soon as the title has written itself in and the widest ring closes with the map at mid screen */
+  .kil .mapbox { view-timeline-name: --kmap; }
+  .kil .mapbox .k-ring { animation: stroke linear both; animation-timeline: --kmap; }
+  .kil .mapbox .k-ring.k-r0 { animation-range: cover 14% cover 25%; }
+  .kil .mapbox .k-ring.k-r1 { animation-range: cover 19% cover 32%; }
+  .kil .mapbox .k-ring.k-r2 { animation-range: cover 24% cover 41%; }
+  .kil .mapbox .k-ring.k-r3 { animation-range: cover 31% cover 50%; }
 
   .ot .stage { padding: var(--section) 20px; }
   .ot h2 { font-size: clamp(38px, 11vw, 52px); }
@@ -230,6 +252,8 @@
   .showhome .box { position: relative; left: auto; bottom: auto; width: 100%; max-width: none; padding: 32px 20px; margin-top: 360px; }
   .showhome h2 { margin-top: 20px; }
 }
+
+@keyframes heroSpin { to { transform: rotate(360deg) } }
 
 @media (prefers-reduced-motion: reduce) {
   .hero { --sh: auto; height: auto; }
@@ -257,4 +281,9 @@
   .kil .mapbox { position: relative; inset: auto; height: auto; aspect-ratio: 1440 / 880; }
   .ot { --sh: auto; height: auto; }
   .ot .stage { position: relative; height: auto; overflow: visible; padding-bottom: var(--section); }
+}
+/* phones with reduced motion: the hero keeps its own height, the cover word is simply there */
+@media (prefers-reduced-motion: reduce) and (max-width: 767px) {
+  .hero .stage { height: auto; }
+  .kil .kword { -webkit-mask-position: 0 0; mask-position: 0 0; }
 }

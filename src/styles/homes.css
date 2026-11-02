@@ -67,7 +67,10 @@
 .phase2-band p { margin-top: 14px; color: var(--cream-2); font-size: 19px; }
 
 /* the site plan hint follows the input: hover and click with a mouse, two taps on a touch screen (see siteplan.ts) */
-.hint-touch { display: none; }
+.hint-touch, .hint-phone { display: none; }
+
+/* phones: the homes as a row of house shapes above the card (the plan itself shows from 768px up) */
+.stories { display: none; }
 @media (hover: none) {
   .hint-mouse { display: none; }
   .hint-touch { display: inline; }
@@ -82,9 +85,20 @@
 @media (max-width: 767px) {
   .plan-head { padding-top: 110px; }
   .plan-head p { font-size: 18px; }
-  .plan-scroll { overflow-x: auto; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); -webkit-overflow-scrolling: touch; }
-  .plan-svg svg { min-width: 640px; }
-  .plan-card { display: block; }
+  .plan-scroll { display: none; }
+  .hint-touch, .hint-mouse { display: none; }
+  .hint-phone { display: inline; }
+  /* four and a half homes across, so the next one shows at the right edge and invites a swipe */
+  .stories { --w: calc((100vw - 2 * var(--pad) - 4 * 12px) / 4.5); display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: none; margin: -6px calc(var(--pad) * -1) 0; padding: 6px var(--pad) 4px; }
+  .stories::-webkit-scrollbar { display: none; }
+  .story { flex: 0 0 var(--w); display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: var(--ink-2); font: 600 13px/1.2 var(--font-body); white-space: nowrap; cursor: pointer; -webkit-user-select: none; user-select: none; }
+  .story-shape { display: block; width: 100%; }
+  .story-shape svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .story .mass { transition: transform .5s var(--ease); }
+  .story[aria-pressed=true] .mass { transform: translateY(-7px); }
+  .story[aria-pressed=true] { color: var(--bottle); }
+  .story.s-sold .story-shape { opacity: .42; }
+  .plan-card { display: block; margin-top: 20px; }
   .plan-card .im { height: 200px; min-height: 0; }
   .plan-card .body { padding: 22px 20px 26px; }
   .plan-card h2 { font-size: 38px; }

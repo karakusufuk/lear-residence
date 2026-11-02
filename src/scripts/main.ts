@@ -1,4 +1,5 @@
 import './concept';
+import './combo';
 import { nextOpen } from '../lib/nextopen';
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -15,10 +16,12 @@ if ((!supported || forced) && !reduced && matchMedia('(min-width: 1200px)').matc
 // Hero day to night: one scroll gesture plays the whole change and holds on the night frame, whatever the force
 // of the gesture (wheel inertia, key repeat and a continuing swipe are absorbed). The page moves on with the next gesture.
 const heroScene = document.querySelector<HTMLElement>('.scene.hero');
+const phone = matchMedia('(max-width: 767px)');
 if (heroScene && !reduced) {
   const travel = () => heroScene.offsetHeight - innerHeight; // the pinned scroll length of the hero
   const lock = () => document.body.style.overflow === 'hidden';
-  const active = () => travel() > 8 && scrollY < travel() - 2 && !lock();
+  // phones have no pinned hero: the change plays by itself (below), scrolling is never held
+  const active = () => !phone.matches && travel() > 8 && scrollY < travel() - 2 && !lock();
   let running = false, locked = false, lastWheel = 0, touched = false, y0 = 0;
   const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const go = () => {
@@ -59,6 +62,34 @@ if (heroScene && !reduced) {
   });
 }
 
+// Phones: the whole house on the screen, day turning to night on its own once both photographs are in.
+// A small loader sits on the centre of the screen only if that takes a noticeable moment.
+if (heroScene && phone.matches) {
+  const imgs = [...heroScene.querySelectorAll<HTMLImageElement>('.hero-pic img')];
+  const loader = heroScene.querySelector<HTMLElement>('.hero-load');
+  imgs.forEach((img) => (img.loading = 'eager'));
+  const slow = window.setTimeout(() => loader?.classList.add('is-on'), 450);
+  // Safari settles decode() early on an image still loading, so wait for each load first
+  const ready = (img: HTMLImageElement) => new Promise<void>((done) => {
+    if (img.complete && img.naturalWidth) done();
+    else { img.addEventListener('load', () => done(), { once: true }); img.addEventListener('error', () => done(), { once: true }); }
+  }).then(() => img.decode().catch(() => {}));
+  Promise.all(imgs.map(ready)).then(() => {
+    clearTimeout(slow);
+    loader?.classList.remove('is-on');
+    window.setTimeout(() => heroScene.classList.add('is-night'), reduced ? 0 : 900);
+  });
+}
+
+// Phones: the "Kildare" cover word writes itself in when it reaches the middle of the screen, not as it enters
+const kword = document.querySelector<HTMLElement>('.kil .kword');
+if (kword && phone.matches) {
+  const io = new IntersectionObserver(([en]) => {
+    if (en.isIntersecting) { kword.classList.add('is-in'); io.disconnect(); }
+  }, { rootMargin: '0px 0px -50% 0px' });
+  io.observe(kword);
+}
+
 // Live "Next open" lines
 const stamp = () => {
   const text = nextOpen();
@@ -74,7 +105,7 @@ const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
 const menu = document.querySelector<HTMLElement>('[data-menu]');
 if (mhd && btn && menu) {
   const label = btn.querySelector<HTMLElement>('[data-menu-label]');
-  const setOpen = (open: boolean, restoreFocus = true) => {
+  const setOpen = (open: boolean, restoreFocus = true, focusFirst = false) => {
     menu.hidden = !open;
     btn.setAttribute('aria-expanded', String(open));
     if (label) label.textContent = open ? 'Close' : 'Menu';
@@ -83,10 +114,11 @@ if (mhd && btn && menu) {
     document.body.style.overflow = open ? 'hidden' : '';
     if (open) {
       mhd.classList.remove('is-hidden');
-      menu.querySelector<HTMLElement>('a[href]')?.focus({ preventScroll: true });
+      // keyboard only: a tap must not leave the first link looking picked
+      if (focusFirst) menu.querySelector<HTMLElement>('a[href]')?.focus({ preventScroll: true });
     } else if (restoreFocus) btn.focus({ preventScroll: true });
   };
-  btn.addEventListener('click', () => setOpen(menu.hidden));
+  btn.addEventListener('click', (e) => setOpen(menu.hidden, e.detail === 0, e.detail === 0));
   menu.addEventListener('click', (e) => {
     const t = e.target as HTMLElement;
     // a tap on the dimmed backdrop closes the menu

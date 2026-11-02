@@ -1,4 +1,4 @@
-import { openConcept } from './concept';
+import { openConcept, demoInert } from './concept';
 // Show home visit booking: demo flow, nothing leaves the browser.
 const root = document.querySelector<HTMLFormElement>('[data-book]');
 
@@ -85,9 +85,19 @@ if (root) {
     el.textContent = msg; el.hidden = !msg;
   }
 
+  // phones: the button that would finish the flow (Confirm visit, or Ask us to call you) stays visible, faded and inactive
+  const finalStep = () => st.step === 3 || (st.step === 2 && st.mode === 'callback');
+  function syncFinal() {
+    $$<HTMLButtonElement>('[data-step="2"] [data-next], [data-step="3"] [data-next]').forEach((b) => {
+      b.disabled = demoInert.matches && (b.closest<HTMLElement>('[data-step]')!.dataset.step === '3' || st.mode === 'callback');
+    });
+  }
+  demoInert.addEventListener('change', syncFinal);
+
   function go(step: number, focus = true) {
     st.step = step;
     $$('[data-step]').forEach((p) => (p.hidden = p.dataset.step !== String(step)));
+    syncFinal();
     if (focus) {
       const panel = root!.querySelector<HTMLElement>(`[data-step="${step}"]`)!;
       const target = panel.querySelector<HTMLElement>('input:not([hidden]), h3[tabindex]') ?? panel.querySelector<HTMLElement>('button');
@@ -194,6 +204,7 @@ if (root) {
   }
 
   function next() {
+    if (demoInert.matches && finalStep()) return;
     if (st.step === 1) {
       if (!st.time) { showErr(1, 'Choose a time to continue.'); return; }
       showErr(1, ''); go(2);
@@ -239,5 +250,5 @@ if (root) {
   // open on the first day that still has a free time
   const firstOpen = days.findIndex((d) => slotsOf(d).some((t, i) => !isTaken(d, t, i) && !isPast(d, t)));
   if (firstOpen > 0) st.day = firstOpen;
-  renderDays(); renderTimes(); summary();
+  renderDays(); renderTimes(); summary(); syncFinal();
 }

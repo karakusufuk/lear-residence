@@ -52,8 +52,13 @@
 .fp .map svg { display: block; width: 100%; height: auto; }
 .rm .fl { transition: fill .45s; }
 .rm .lbl { opacity: 0; transition: opacity .3s; pointer-events: none; }
-.rm:hover .fl, .rm.is-on .fl, .rm:focus .fl { fill: #C9D3BC; }
-.rm:hover .lbl, .rm.is-on .lbl, .rm:focus .lbl { opacity: 1; }
+.rm.is-on .fl { fill: #C9D3BC; }
+.rm.is-on .lbl { opacity: 1; }
+/* phones keep only the picked room lit: a touch screen leaves :hover and :focus on the last room tapped */
+@media (min-width: 768px) {
+  .rm:hover .fl, .rm:focus .fl { fill: #C9D3BC; }
+  .rm:hover .lbl, .rm:focus .lbl { opacity: 1; }
+}
 .rm:focus { outline: none; }
 
 /* what it is made of */

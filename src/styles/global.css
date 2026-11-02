@@ -110,6 +110,19 @@ button { font: inherit; color: inherit; }
 .fld [aria-invalid=true] { box-shadow: inset 0 0 0 2px var(--brick); }
 .fld .err { font-weight: 500; font-size: 14px; color: var(--brick); }
 .dark .fld .err { color: #E7B8A6; }
+/* the site's own combobox (combo.ts): phones only, the native select stays on wider screens */
+.combo { display: none; position: relative; }
+.combo-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; font: 500 17px/1.6 var(--font-body); text-align: left; padding: 14px 16px; border-radius: var(--radius); border: 0; box-shadow: inset 0 0 0 1.5px #CFC8BA; background: var(--white); color: var(--ink); cursor: pointer; transition: box-shadow .3s; }
+.combo-val { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.combo-arr { flex: none; display: block; color: var(--ink-2); transition: transform .3s var(--ease); }
+.combo.is-open .combo-btn { box-shadow: inset 0 0 0 1.5px #A39A88; }
+.combo.is-open .combo-arr { transform: rotate(180deg); }
+.combo-list { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 20; margin: 0; padding: 6px 0; background: var(--white); border-radius: var(--radius); box-shadow: inset 0 0 0 1.5px #CFC8BA, 0 18px 40px -18px rgba(14, 42, 32, .35); }
+.combo-list[hidden] { display: none; }
+.combo-list li { display: flex; align-items: center; min-height: 48px; padding: 0 16px; font: 500 17px var(--font-body); color: var(--ink); cursor: pointer; }
+.combo-list li[aria-selected=true] { font-weight: 700; color: var(--bottle); }
+.combo-list li:focus { background: var(--paper); }
+
 .chip { font: 600 15px var(--font-body); padding: 13px 14px; border-radius: var(--radius); border: 0; cursor: pointer; text-align: left; background: var(--white); color: var(--ink); box-shadow: inset 0 0 0 1.5px #CFC8BA; transition: box-shadow .3s, background .3s; min-height: 44px; }
 .chip:hover { box-shadow: inset 0 0 0 1.5px var(--bottle); }
 .chip[aria-pressed=true] { background: var(--bottle); color: var(--cream); box-shadow: inset 0 0 0 1.5px var(--bottle); }
@@ -193,4 +206,23 @@ html.sd-poly *, html.sd-poly *::before, html.sd-poly *::after { animation: none 
   :root { --pad: 20px; --asym-l: 0px; --asym-r: 0px; --section: 88px; }
   .mhd-word { display: none; }
   .foot-legal { flex-direction: column; gap: 6px; }
+
+  /* Nothing looks selected unless it was chosen: no tap flash, no focus rings, and no hover state left on an
+     element after a tap (a touch screen keeps :hover on the last thing touched). Only designed states show. */
+  html { -webkit-tap-highlight-color: transparent; }
+  *:focus, *:focus-visible { outline: none !important; }
+  a:hover { color: var(--bottle); }
+  .btn:hover, .btn:focus-visible { background: var(--bottle); color: var(--cream); }
+  .btn.light:hover, .btn.light:focus-visible { background: var(--cream); color: var(--bottle); }
+  .btn.ghost:hover, .btn.ghost:focus-visible { background: transparent; color: var(--bottle); box-shadow: inset 0 0 0 1.5px var(--bottle); }
+  .btn::after { display: none; }
+  .chip:not([aria-pressed=true]):not(:disabled):hover { box-shadow: inset 0 0 0 1.5px #CFC8BA; }
+  .rl:hover:not(.is-on) { color: inherit; padding-left: 0; }
+  .mr:hover:not(.is-on) { padding-left: 0; background: transparent; }
+  .mr:hover:not(.is-on) .mt { color: inherit; }
+  .bs:hover h2 { color: var(--bottle); }
+  .fld select { display: none; }
+  .combo { display: block; }
+  /* text fields: the field's own border darkens a little, nothing else */
+  .fld input:focus, .fld select:focus, .fld textarea:focus { box-shadow: inset 0 0 0 1.5px #A39A88; }
 }

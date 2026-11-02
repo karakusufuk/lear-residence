@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
-import { sitePlanSvg } from '../../lib/siteplan';
+import { sitePlanSvg, plotShapes } from '../../lib/siteplan';
 import { plots, homes, statusText, statusDot, countsSentence, typeBySlug, priceText, euro, phase2 } from '../../lib/plots';
 import '../../styles/homes.css';
 
@@ -10,6 +10,8 @@ const planData = plots.map((p) => {
   return { n: p.n, type: p.type, typeName: t.name, status: p.status, statusText: statusText[p.status], dot: statusDot[p.status], beds: t.beds, area: t.area, ber: t.ber, price: p.price, priceText: priceText(p), href: `/homes/${p.type}/?plot=${p.n}` };
 });
 const first = planData.find((p) => p.n === 5) ?? planData[0];
+// phones: the homes in a row in the order they stand round the green, the show home first
+const storyOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 14, 13, 12, 11];
 const legend = [
   ['Available', '#F4F2ED', '#7A9F45'],
   ['Reserved', '#E6E1D6', '#9C9482'],
@@ -24,11 +26,22 @@ const legend = [
 >
   <section class="plan-head">
     <h1 class="serif wipe onview">The site plan.</h1>
-    <p class="num" data-counts>{countsSentence()}. <span class="hint-mouse">Hover a home to see it, click to open it.</span><span class="hint-touch">Tap a home to see it, tap it again to open it.</span></p>
+    <p class="num" data-counts>{countsSentence()}. <span class="hint-mouse">Hover a home to see it, click to open it.</span><span class="hint-touch">Tap a home to see it, tap it again to open it.</span><span class="hint-phone">Tap a home to see it.</span></p>
   </section>
 
   <section class="plan" aria-label="Site plan">
     <div class="rule2"></div>
+    <div class="stories" role="group" aria-label="Phase 1 homes" data-stories>
+      {storyOrder.map((n) => {
+        const p = planData.find((x) => x.n === n)!;
+        return (
+          <button type="button" class={`story s-${p.status}`} data-story={n} aria-pressed="false" aria-label={`Plot ${n}, ${p.typeName}, ${p.statusText.toLowerCase()}`}>
+            <span class="story-shape" set:html={plotShapes.get(n)} />
+            <span class="story-lbl">{p.status === 'show' ? 'Show home' : n}</span>
+          </button>
+        );
+      })}
+    </div>
     <div class="plan-grid" data-plan>
       <div class="plan-scroll">
         <div class="plan-svg"><Fragment set:html={sitePlanSvg} /></div>
